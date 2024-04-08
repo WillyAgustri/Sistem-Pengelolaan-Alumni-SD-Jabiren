@@ -124,7 +124,7 @@
                                 <a class="m-2" href="../dashboards">
                                     Demo Admin
                                 </a>
-                                <a c href="../dashboards">
+                                <a c href="../alumni">
                                     Demo Alumni
                                 </a>
                                 <span class="d-block  mt-4 text-muted">

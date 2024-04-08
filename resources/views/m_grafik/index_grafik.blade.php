@@ -18,22 +18,9 @@
                     <code>/js/demo/chart-area-demo.js</code> file.
                 </div>
             </div>
+
         </div>
-        <!-- Bar Chart -->
-        <div class="col-lg-8">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Daftar Nama Sekolah Yang Diminati</h6>
-                </div>
-                <div class="card-body">
-                    <div class="chart-bar">
-                        <canvas id="myBarChart"></canvas>
-                    </div>
-                    <hr>
-                    Styling for the bar chart can be found in the <code>/js/demo/chart-bar-demo.js</code> file.
-                </div>
-            </div>
-        </div>
+
         <!-- Donut Chart -->
         <div class="col-lg-4">
             <div class="card shadow mb-4">

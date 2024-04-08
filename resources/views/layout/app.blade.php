@@ -18,67 +18,128 @@
 <body>
 
     <div id="wrapper">
-        <!-- Sidebar -->
-        <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <!-- Modal Logout -->
+        <div class="modal fade" id="logoutModals" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabelLogout">
+                            Ohh No!
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Apakah Anda Yakin Ingin Log</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <a href="{{ route('logout') }}" class="btn btn-primary">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                <div class="text-sm sidebar-brand-textd ">SDN Negeri 1 Jabiren
-                    Raya</div>
-            </a>
-            <hr class="sidebar-divider my-0" />
-            <li class="nav-item active">
-                <a class="nav-link" href="../dashboards">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-            <hr class="sidebar-divider" />
-            <div class="sidebar-heading">Fitur</div>
-            <li class="nav-item">
-                <a class="nav-link" href="../manage-profil">
-                    <i class="far fa-user-circle"></i>
-                    <span>Pengaturan Profil</span>
+        @auth('alumnis')
+            <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+
+                    <div class="text-sm sidebar-brand-textd ">SDN Negeri 1 Jabiren
+                        Raya</div>
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../manage-admin">
-                    <i class="far fa-id-card"></i>
-                    <span>Pengelolaan Admin</span>
+                <hr class="sidebar-divider my-0" />
+                <li class="nav-item active">
+                    <a class="nav-link" href="../dashboards">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
+                <hr class="sidebar-divider" />
+                <div class="sidebar-heading">Fitur</div>
+                <li class="nav-item">
+                    <a class="nav-link" href="../alumni-profil">
+                        <i class="far fa-user-circle"></i>
+                        <span>Pengaturan Profil</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+                <hr class="sidebar-divider" />
+                <div class="version">Version 1.0</div>
+            </ul>
+        @endauth
+
+        @auth('admin')
+            <!-- Sidebar -->
+            <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+
+                    <div class="text-sm sidebar-brand-textd ">SDN Negeri 1 Jabiren
+                        Raya</div>
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../manage-tahun">
-                    <i class="far fa-calendar-alt"></i>
-                    <span>Pengelolaan Tahun</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../manage-alumni">
-                    <i class="fas fa-users"></i>
-                    <span>Pengelolaan Alumni</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../manage-aktivasi">
-                    <i class="fas fa-lock-open"></i>
-                    <span>Aktivasi Akun Alumni</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../manage-grafik">
-                    <i class="fas fa-chart-bar"></i>
-                    <span>Grafik</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
-                </a>
-            </li>
-            <hr class="sidebar-divider" />
-            <div class="version">Version 1.0</div>
-        </ul>
-        <!-- Sidebar -->
+                <hr class="sidebar-divider my-0" />
+                <li class="nav-item active">
+                    <a class="nav-link" href="../dashboards">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
+                <hr class="sidebar-divider" />
+                <div class="sidebar-heading">Fitur</div>
+                <li class="nav-item">
+                    <a class="nav-link" href="../manage-profil">
+                        <i class="far fa-user-circle"></i>
+                        <span>Pengaturan Profil</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../manage-admin">
+                        <i class="far fa-id-card"></i>
+                        <span>Pengelolaan Admin</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../manage-tahun">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>Pengelolaan Tahun</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../manage-alumni">
+                        <i class="fas fa-users"></i>
+                        <span>Pengelolaan Alumni</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../manage-aktivasi">
+                        <i class="fas fa-lock-open"></i>
+                        <span>Aktivasi Akun Alumni</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../manage-grafik">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Grafik</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+                <hr class="sidebar-divider" />
+                <div class="version">Version 1.0</div>
+            </ul>
+            <!-- Sidebar -->
+        @endauth
 
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
@@ -100,12 +161,13 @@
                                 aria-labelledby="userDropdown">
 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal"
-                                    data-target="#logoutModal">
+                                <a class="dropdown-item" href="d" data-toggle="modal"
+                                    data-target="#logoutModals">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
                             </div>
+
                         </li>
                     </ul>
                 </nav>

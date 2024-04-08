@@ -72,10 +72,7 @@
                                                         Ubah
                                                         Data
                                                     </div>
-                                                    <div class="btn btn-danger mt-2">
-                                                        Hapus
-                                                        Data
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>

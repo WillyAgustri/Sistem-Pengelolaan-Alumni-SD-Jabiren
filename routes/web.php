@@ -27,6 +27,9 @@ Route::middleware(['auth:alumnis'])->group(function () {
     Route::get('/alumni', function () {
         return view('a_lihatAlumni.index_lihatAlumni');
     });
+    Route::get('alumni-profil', function () {
+        return view('a_profil.index_profil');
+    });
 
 });
 
@@ -35,10 +38,6 @@ Route::middleware(['auth:admin'])->group(function () {
         return view('dashboard/dashboard');
     });
     
-    
-    Route::get('/manage-admin', function () {
-        return view('m_admin/index_admin');
-    });
     Route::get('/manage-alumni', function () {
         return view('m_alumni/index_alumni');
     });
@@ -55,7 +54,7 @@ Route::middleware(['auth:admin'])->group(function () {
         return view('m_profil/index_profil');
     });
 
-    Route::resource('admins', AdminsController::class);
+    Route::resource('/manage-admin', AdminsController::class);
 Route::resource('alumnis', AlumnisController::class);
 Route::resource('tahuns', TahunsController::class);
 Route::resource('aktivasis', AktivasisController::class);

@@ -23,9 +23,48 @@
                 <div class="card mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">
-                            <button class="btn btn-info">
+                            <button class="btn btn-info" data-toggle="modal" data-target="#modalTambahAdmin">
                                 Tambah Data
                             </button>
+
+                            {{-- Modal Tambah Data --}}
+                            <div class="modal fade" id="modalTambahAdmin" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Admin</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group form-sm">
+                                                    <label for="recipient-name" class=" col-form-label">Nama:</label>
+                                                    <input type="text" class="form-control" id="recipient-name">
+                                                </div>
+                                                <div class="form-group  form-sm">
+                                                    <label for="nisn" class=" col-form-label">Username (Untuk
+                                                        Login)</label>
+                                                    <input type="text" class="form-control" id="nisn">
+                                                </div>
+                                                <div class="form-group form-sm">
+                                                    <label for="password" class=" col-form-label">Password</label>
+                                                    <input type="text" class="form-control" id="password">
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Batal</button>
+                                            <button type="button" class="btn btn-success">Tambah Data</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </h6>
                     </div>
                     <div class="table-responsive p-3">
@@ -53,45 +92,47 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
-                                    <td>
-                                        <div class="btn-group dropleft align-items-center">
-                                            <button type="button" class="btn btn-primary dropdown-toggle "
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                <i class="fas fa-cogs"></i>
-                                            </button>
-                                            <div class="dropdown-menu shadow-lg">
-                                                <div class="text-center">
-                                                    <p>
-                                                        Menu
-                                                        Aksi
-                                                    </p>
-                                                    <p>
-                                                        ID Data
-                                                        :1
-                                                    </p>
-                                                </div>
-                                                <hr class="solid" />
-                                                <div class="text-center mt-2">
-                                                    <div class="btn btn-warning">
-                                                        Ubah
-                                                        Data
+                                @foreach ($admins as $admin)
+                                    <tr>
+                                        <td>{{ $admin->id }}</td>
+                                        <td>{{ $admin->foto }}</td>
+                                        <td>{{ $admin->name }}</td>
+                                        <td>{{ $admin->username }}</td>
+                                        <td>(Encrypt Password)</td>
+                                        <td>{{ $admin->phone_num }}</td>
+                                        <td>
+                                            <div class="btn-group dropleft align-items-center">
+                                                <button type="button" class="btn btn-primary dropdown-toggle "
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    <i class="fas fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu shadow-lg">
+                                                    <div class="text-center">
+                                                        <p>
+                                                            Menu
+                                                            Aksi
+                                                        </p>
+                                                        <p>
+                                                            ID Data :
+                                                            {{ $admin->id }}
+                                                        </p>
                                                     </div>
-                                                    <div class="btn btn-danger mt-2">
-                                                        Hapus
-                                                        Data
+                                                    <hr class="solid" />
+                                                    <div class="text-center mt-2">
+                                                        <div class="btn btn-warning">
+                                                            Ubah
+                                                            Data
+                                                        </div>
+                                                        <div class="btn btn-danger mt-2">
+                                                            Hapus
+                                                            Data
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

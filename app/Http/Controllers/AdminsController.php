@@ -17,7 +17,7 @@ class AdminsController extends Controller
     public function index()
     {
         $admins= Admin::all();
-        return view('admins.index', ['admins'=>$admins]);
+        return view('m_admin.index_admin', ['admins'=>$admins]);
     }
 
     /**

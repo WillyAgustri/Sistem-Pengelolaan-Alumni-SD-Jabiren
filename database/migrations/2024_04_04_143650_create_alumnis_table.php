@@ -20,7 +20,7 @@ class CreateAlumnisTable extends Migration
 			$table->integer('id_tahun');
 			$table->string('j_kelamin');
 			$table->string('tmpt_lahir');
-			$table->integer('tgl_lahir');
+			$table->date('tgl_lahir');
 			$table->string('phone_num');
 			$table->string('alamat');
 			$table->text('foto');
