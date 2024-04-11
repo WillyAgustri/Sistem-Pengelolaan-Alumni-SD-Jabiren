@@ -18,8 +18,8 @@ class CreateAdminsTable extends Migration
 			$table->string('name')->nullable();
 			$table->string('username');
 			$table->string('password');
-			$table->text('foto');
-			$table->string('phone_num');
+			$table->text('foto')->nullable();
+			$table->string('phone_num')->nullable();
             $table->timestamps();
         });
     }

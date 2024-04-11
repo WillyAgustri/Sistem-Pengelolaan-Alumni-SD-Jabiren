@@ -14,11 +14,28 @@ class Alumnus extends Authenticatable
     protected $guard = "alumnis";
 
     protected $fillable = [
-    'name','nisn','j_kelamin','tmpt_lahir','tgl_lahir','password','role'
+        'name',
+        'nisn',
+        'j_kelamin',
+        'tmpt_lahir',
+        'tgl_lahir',
+        'password',
+        'role'
+    ];
+
+    protected $hidden = [
+
+        'password'
+    ];
+    protected $casts = [
+
+        'password' => 'hashed',
     ];
 
     public function username()
     {
         return 'nisn';
     }
+
+
 }

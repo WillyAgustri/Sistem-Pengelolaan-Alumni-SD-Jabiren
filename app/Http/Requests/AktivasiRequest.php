@@ -24,10 +24,10 @@ class AktivasiRequest extends FormRequest
     public function rules()
     {
         return
-        [
-			'name' => 'required',
-			'nisn' => 'required',
-			'brks_ijasah' => 'required',
-        ];
+            [
+                'name' => 'required',
+                'nisn' => 'required',
+                'brks_ijasah' => 'required',
+            ];
     }
 }

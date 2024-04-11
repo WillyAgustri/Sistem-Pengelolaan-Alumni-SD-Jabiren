@@ -14,17 +14,17 @@ class CreateAlumnisTable extends Migration
     public function up()
     {
         Schema::create('alumnis', function (Blueprint $table) {
-            $table->id();
-			$table->string('name');
-			$table->string('nisn');
-			$table->integer('id_tahun');
-			$table->string('j_kelamin');
-			$table->string('tmpt_lahir');
-			$table->date('tgl_lahir');
-			$table->string('phone_num');
-			$table->string('alamat');
-			$table->text('foto');
-			$table->string('password');
+            $table->id('id_alumni');
+            $table->string('name');
+            $table->string('nisn');
+            $table->integer('id_tahun');
+            $table->enum('j_kelamin', ['L', 'P']);
+            $table->string('tmpt_lahir');
+            $table->date('tgl_lahir');
+            $table->string('phone_num');
+            $table->string('alamat');
+            $table->text('foto');
+            $table->string('password');
             $table->timestamps();
         });
     }

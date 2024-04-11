@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 use App\Models\Admin;
-use App\Http\Requests\AdminRequest;
+use Illuminate\Http\Request;
 
 class AdminsController extends Controller
 {
@@ -16,35 +16,25 @@ class AdminsController extends Controller
      */
     public function index()
     {
-        $admins= Admin::all();
-        return view('m_admin.index_admin', ['admins'=>$admins]);
+        $admins = Admin::all();
+
+        return view('m_admin.index_admin', ['admins' => $admins]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function create()
-    {
-        return view('admins.create');
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  AdminRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(AdminRequest $request)
+
+    public function store(Request $request)
     {
+
         $admin = new Admin;
-		$admin->name = $request->input('name');
-		$admin->username = $request->input('username');
-		$admin->password = $request->input('password');
-		$admin->foto = $request->input('foto');
-		$admin->phone_num = $request->input('phone_num');
+        $admin->name = $request->input('name');
+        $admin->username = $request->input('username');
+        $admin->password = $request->input('password');
+
+        // dd($admin);
+
         $admin->save();
+
 
         return to_route('admins.index');
     }
@@ -58,7 +48,7 @@ class AdminsController extends Controller
     public function show($id)
     {
         $admin = Admin::findOrFail($id);
-        return view('admins.show',['admin'=>$admin]);
+        return view('admins.show', ['admin' => $admin]);
     }
 
     /**
@@ -70,24 +60,17 @@ class AdminsController extends Controller
     public function edit($id)
     {
         $admin = Admin::findOrFail($id);
-        return view('admins.edit',['admin'=>$admin]);
+        return view('admins.edit', ['admin' => $admin]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  AdminRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(AdminRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $admin = Admin::findOrFail($id);
-		$admin->name = $request->input('name');
-		$admin->username = $request->input('username');
-		$admin->password = $request->input('password');
-		$admin->foto = $request->input('foto');
-		$admin->phone_num = $request->input('phone_num');
+        $admin->name = $request->input('name');
+        $admin->username = $request->input('username');
+        $admin->password = $request->input('password') ? $request->input('password') : $admin->password;
+        $admin->foto = $request->input('foto');
+        $admin->phone_num = $request->input('phone_num');
         $admin->save();
 
         return to_route('admins.index');

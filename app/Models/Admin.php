@@ -10,7 +10,7 @@ class Admin extends Authenticatable
 {
     use HasFactory;
 
-    
+
 
     protected $guard = 'admin';
     protected $fillable = [

@@ -47,15 +47,14 @@
         @auth('alumnis')
             <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-
-                    <div class="text-sm sidebar-brand-textd ">SDN Negeri 1 Jabiren
-                        Raya</div>
+                    <div class="text-sm sidebar-brand-textd ">SDN Negeri 1 Jabiren Raya</div>
                 </a>
                 <hr class="sidebar-divider my-0" />
                 <li class="nav-item active">
                     <a class="nav-link" href="../dashboards">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Dashboard</span></a>
+                        <span>Dashboard</span>
+                    </a>
                 </li>
                 <hr class="sidebar-divider" />
                 <div class="sidebar-heading">Fitur</div>
@@ -65,7 +64,6 @@
                         <span>Pengaturan Profil</span>
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <i class="fas fa-sign-out-alt"></i>
@@ -155,7 +153,16 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="img-profile rounded-circle" src="img/boy.png" style="max-width: 60px" />
-                                <span class="ml-2 d-none d-lg-inline text-white small">Mirnawati agustiar</span>
+                                <span class="ml-2 d-none d-lg-inline text-white small">
+                                    @auth('admin')
+                                        {{ auth('admin')->user()->name }}
+                                    @endauth
+
+                                    @auth('alumnis')
+                                        {{ auth('alumnis')->user()->name }}
+                                    @endauth
+
+                                </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">

@@ -14,9 +14,8 @@ class CreateTahunsTable extends Migration
     public function up()
     {
         Schema::create('tahuns', function (Blueprint $table) {
-            $table->id();
-			$table->integer('id_tahun');
-			$table->integer('tahun');
+            $table->id('id_tahun');
+            $table->integer('tahun');
             $table->timestamps();
         });
     }

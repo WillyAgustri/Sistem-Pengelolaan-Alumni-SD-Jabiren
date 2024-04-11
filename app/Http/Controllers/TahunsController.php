@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Tahun;
 use App\Http\Requests\TahunRequest;
+use Illuminate\Http\Request;
 
 class TahunsController extends Controller
 {
@@ -16,8 +17,8 @@ class TahunsController extends Controller
      */
     public function index()
     {
-        $tahuns= Tahun::all();
-        return view('tahuns.index', ['tahuns'=>$tahuns]);
+        $tahuns = Tahun::all();
+        return view('m_tahun.index_tahun', ['tahuns' => $tahuns]);
     }
 
     /**
@@ -30,17 +31,11 @@ class TahunsController extends Controller
         return view('tahuns.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  TahunRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(TahunRequest $request)
+
+    public function store(Request $request)
     {
         $tahun = new Tahun;
-		$tahun->id_tahun = $request->input('id_tahun');
-		$tahun->tahun = $request->input('tahun');
+        $tahun->tahun = $request->input('tahun');
         $tahun->save();
 
         return to_route('tahuns.index');
@@ -55,7 +50,7 @@ class TahunsController extends Controller
     public function show($id)
     {
         $tahun = Tahun::findOrFail($id);
-        return view('tahuns.show',['tahun'=>$tahun]);
+        return view('tahuns.show', ['tahun' => $tahun]);
     }
 
     /**
@@ -67,7 +62,7 @@ class TahunsController extends Controller
     public function edit($id)
     {
         $tahun = Tahun::findOrFail($id);
-        return view('tahuns.edit',['tahun'=>$tahun]);
+        return view('tahuns.edit', ['tahun' => $tahun]);
     }
 
     /**
@@ -77,11 +72,10 @@ class TahunsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(TahunRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $tahun = Tahun::findOrFail($id);
-		$tahun->id_tahun = $request->input('id_tahun');
-		$tahun->tahun = $request->input('tahun');
+        $tahun->tahun = $request->input('tahun');
         $tahun->save();
 
         return to_route('tahuns.index');

@@ -16,8 +16,8 @@ class AktivasisController extends Controller
      */
     public function index()
     {
-        $aktivasis= Aktivasi::all();
-        return view('aktivasis.index', ['aktivasis'=>$aktivasis]);
+        $aktivasis = Aktivasi::all();
+        return view('aktivasis.index', ['aktivasis' => $aktivasis]);
     }
 
     /**
@@ -39,9 +39,9 @@ class AktivasisController extends Controller
     public function store(AktivasiRequest $request)
     {
         $aktivasi = new Aktivasi;
-		$aktivasi->name = $request->input('name');
-		$aktivasi->nisn = $request->input('nisn');
-		$aktivasi->brks_ijasah = $request->input('brks_ijasah');
+        $aktivasi->name = $request->input('name');
+        $aktivasi->nisn = $request->input('nisn');
+        $aktivasi->brks_ijasah = $request->input('brks_ijasah');
         $aktivasi->save();
 
         return to_route('aktivasis.index');
@@ -56,7 +56,7 @@ class AktivasisController extends Controller
     public function show($id)
     {
         $aktivasi = Aktivasi::findOrFail($id);
-        return view('aktivasis.show',['aktivasi'=>$aktivasi]);
+        return view('aktivasis.show', ['aktivasi' => $aktivasi]);
     }
 
     /**
@@ -68,7 +68,7 @@ class AktivasisController extends Controller
     public function edit($id)
     {
         $aktivasi = Aktivasi::findOrFail($id);
-        return view('aktivasis.edit',['aktivasi'=>$aktivasi]);
+        return view('aktivasis.edit', ['aktivasi' => $aktivasi]);
     }
 
     /**
@@ -81,9 +81,9 @@ class AktivasisController extends Controller
     public function update(AktivasiRequest $request, $id)
     {
         $aktivasi = Aktivasi::findOrFail($id);
-		$aktivasi->name = $request->input('name');
-		$aktivasi->nisn = $request->input('nisn');
-		$aktivasi->brks_ijasah = $request->input('brks_ijasah');
+        $aktivasi->name = $request->input('name');
+        $aktivasi->nisn = $request->input('nisn');
+        $aktivasi->brks_ijasah = $request->input('brks_ijasah');
         $aktivasi->save();
 
         return to_route('aktivasis.index');

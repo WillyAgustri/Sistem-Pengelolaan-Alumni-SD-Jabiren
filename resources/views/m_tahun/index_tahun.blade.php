@@ -23,7 +23,7 @@
                 <div class="card mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">
-                            <button class="btn btn-info">
+                            <button class="btn btn-info" data-toggle="modal" data-target="#modalTambahTahun">
                                 Tambah Data
                             </button>
                         </h6>
@@ -46,38 +46,135 @@
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2023</td>
-                                    <td class="text-center">
-                                        <div class="btn-group dropleft align-items-center">
-                                            <button type="button" class="btn btn-primary dropdown-toggle "
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                <i class="fas fa-cogs"></i>
-                                            </button>
-                                            <div class="dropdown-menu shadow-lg">
-                                                <div class="text-center">
-                                                    <p>
-                                                        Menu
-                                                        Aksi
-                                                    </p>
-                                                    <p>
-                                                        ID Data
-                                                        :1
-                                                    </p>
+                                @foreach ($tahuns as $tahun)
+                                    <tr>
+                                        <td>{{ $tahun->id_tahun }}</td>
+                                        <td>{{ $tahun->tahun }}</td>
+                                        <td class="text-center">
+                                            <div class="btn-group dropleft align-items-center">
+                                                <button type="button" class="btn btn-primary dropdown-toggle "
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                                    <i class="fas fa-cogs"></i>
+                                                </button>
+                                                <div class="dropdown-menu shadow-lg">
+                                                    <div class="text-center">
+                                                        <p>
+                                                            Menu
+                                                            Aksi
+                                                        </p>
+                                                        <p>
+                                                            ID Data
+                                                            :{{ $tahun->id_tahun }}
+                                                        </p>
+                                                    </div>
+                                                    <hr class="solid" />
+                                                    <div class="text-center mt-2">
+                                                        <div class="btn btn-warning" data-toggle="modal"
+                                                            data-target="#modalUbahTahun{{ $tahun->id_tahun }}">
+                                                            Ubah
+                                                            Data
+                                                        </div>
+
+                                                    </div>
                                                 </div>
-                                                <hr class="solid" />
-                                                <div class="text-center mt-2">
-                                                    <div class="btn btn-warning">
-                                                        Ubah
-                                                        Data
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {{-- Modal Ubah Data --}}
+                                    <div class="modal fade" id="modalUbahTahun{{ $tahun->id_tahun }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Ubah Data Tahun</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form method="POST"
+                                                    action="{{ route('tahuns.update', $tahun->id_tahun) }}">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="modal-body">
+
+                                                        <div class="form-group form-sm">
+                                                            <label for="tahun" class=" col-form-label">Tahun:</label>
+                                                            <input type="text" class="form-control" name="tahun"
+                                                                id="tahun" value="{{ $tahun->tahun }}">
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger"
+                                                            data-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-success">Ubah Data</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- Modal Hapus Data --}}
+                                    <div class="modal fade" id="modalHapusTahun{{ $tahun->id_tahun }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Tahun</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form method="POST"
+                                                    action="{{ route('tahuns.destroy', $tahun->id_tahun) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <div class="modal-body">
+                                                        <p>Apakah Anda yakin ingin menghapus data ini?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger"
+                                                            data-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-success">Hapus Data</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                {{-- Modal Tambah Data --}}
+                                <div class="modal fade" id="modalTambahTahun" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Tahun</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="{{ route('tahuns.store') }}" method="POST">
+                                                @csrf
+                                                <div class="modal-body">
+
+                                                    <div class="form-group form-sm">
+                                                        <label for="tahun" class=" col-form-label">Tahun:</label>
+                                                        <input type="text" class="form-control" name="tahun"
+                                                            id="tahun">
                                                     </div>
 
                                                 </div>
-                                            </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger"
+                                                        data-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-success">Tambah Data</button>
+                                                </div>
+                                            </form>
                                         </div>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </div>
                             </tbody>
                         </table>
                     </div>
@@ -87,8 +184,8 @@
         <!--Row-->
 
         <!-- Modal Logout -->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
-            aria-hidden="true">
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

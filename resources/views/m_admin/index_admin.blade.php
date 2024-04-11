@@ -27,44 +27,6 @@
                                 Tambah Data
                             </button>
 
-                            {{-- Modal Tambah Data --}}
-                            <div class="modal fade" id="modalTambahAdmin" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Tambah Data Admin</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form>
-                                                <div class="form-group form-sm">
-                                                    <label for="recipient-name" class=" col-form-label">Nama:</label>
-                                                    <input type="text" class="form-control" id="recipient-name">
-                                                </div>
-                                                <div class="form-group  form-sm">
-                                                    <label for="nisn" class=" col-form-label">Username (Untuk
-                                                        Login)</label>
-                                                    <input type="text" class="form-control" id="nisn">
-                                                </div>
-                                                <div class="form-group form-sm">
-                                                    <label for="password" class=" col-form-label">Password</label>
-                                                    <input type="text" class="form-control" id="password">
-                                                </div>
-
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger"
-                                                data-dismiss="modal">Batal</button>
-                                            <button type="button" class="btn btn-success">Tambah Data</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </h6>
                     </div>
                     <div class="table-responsive p-3">
@@ -119,11 +81,13 @@
                                                     </div>
                                                     <hr class="solid" />
                                                     <div class="text-center mt-2">
-                                                        <div class="btn btn-warning">
+                                                        <div class="btn btn-warning" data-toggle="modal"
+                                                            data-target="#modalUbahAdmin{{ $admin->id }}">
                                                             Ubah
                                                             Data
                                                         </div>
-                                                        <div class="btn btn-danger mt-2">
+                                                        <div class="btn btn-danger mt-2" data-toggle="modal"
+                                                            data-target="#modalHapusAdmin{{ $admin->id }}">
                                                             Hapus
                                                             Data
                                                         </div>
@@ -132,7 +96,129 @@
                                             </div>
                                         </td>
                                     </tr>
+
+                                    {{-- Modal Ubah Data --}}
+                                    <div class="modal fade" id="modalUbahAdmin{{ $admin->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Ubah Data Admin</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form method="POST" action="{{ route('admins.update', $admin->id) }}">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="modal-body">
+
+                                                        <div class="form-group form-sm">
+                                                            <label for="name" class=" col-form-label">Nama:</label>
+                                                            <input type="text" class="form-control" name="name"
+                                                                id="name" value="{{ $admin->name }}">
+                                                        </div>
+                                                        <div class="form-group  form-sm">
+                                                            <label for="username" class=" col-form-label">Username (Untuk
+                                                                Login)</label>
+                                                            <input type="text" class="form-control" name="username"
+                                                                id="username" value="{{ $admin->username }}">
+                                                        </div>
+                                                        <div class="form-group form-sm">
+                                                            <label for="password" class=" col-form-label">Password</label>
+                                                            <input type="text" class="form-control" name="password"
+                                                                id="password" value="">
+                                                        </div>
+                                                        <div class="form-group form-sm">
+                                                            <label for="password_confirmation"
+                                                                class=" col-form-label">Konfirmasi Password</label>
+                                                            <input type="text" class="form-control"
+                                                                name="password_confirmation" id="password_confirmation"
+                                                                value="">
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger"
+                                                            data-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-success">Ubah Data</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- Modal Hapus Data --}}
+                                    <div class="modal fade" id="modalHapusAdmin{{ $admin->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Admin</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form method="POST" action="{{ route('admins.destroy', $admin->id) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <div class="modal-body">
+                                                        <p>Apakah Anda yakin ingin menghapus data ini?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger"
+                                                            data-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-success">Hapus Data</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
+                                {{-- Modal Tambah Data --}}
+                                <div class="modal fade" id="modalTambahAdmin" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Admin</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form method="POST">
+                                                @csrf
+                                                <div class="modal-body">
+
+                                                    <div class="form-group form-sm">
+                                                        <label for="name" class=" col-form-label">Nama:</label>
+                                                        <input type="text" class="form-control" name="name"
+                                                            id="name">
+                                                    </div>
+                                                    <div class="form-group  form-sm">
+                                                        <label for="username" class=" col-form-label">Username (Untuk
+                                                            Login)</label>
+                                                        <input type="text" class="form-control" name="username"
+                                                            id="username">
+                                                    </div>
+                                                    <div class="form-group form-sm">
+                                                        <label for="password" class=" col-form-label">Password</label>
+                                                        <input type="text" class="form-control" name="password"
+                                                            id="password">
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger"
+                                                        data-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-success">Tambah Data</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </tbody>
                         </table>
                     </div>
@@ -142,8 +228,8 @@
         <!--Row-->
 
         <!-- Modal Logout -->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
-            aria-hidden="true">
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
