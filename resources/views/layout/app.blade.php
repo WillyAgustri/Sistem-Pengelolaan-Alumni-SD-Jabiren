@@ -92,7 +92,7 @@
                 <hr class="sidebar-divider" />
                 <div class="sidebar-heading">Fitur</div>
                 <li class="nav-item">
-                    <a class="nav-link" href="../manage-profil">
+                    <a class="nav-link" href="{{ route('setting-profil.index') }}">
                         <i class="far fa-user-circle"></i>
                         <span>Pengaturan Profil</span>
                     </a>
@@ -152,7 +152,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="img-profile rounded-circle" src="img/boy.png" style="max-width: 60px" />
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset('images/' . Auth::user()->foto) }}" style="max-width: 60px" />
                                 <span class="ml-2 d-none d-lg-inline text-white small">
                                     @auth('admin')
                                         {{ auth('admin')->user()->name }}

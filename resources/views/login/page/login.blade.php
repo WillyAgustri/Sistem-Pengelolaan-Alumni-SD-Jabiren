@@ -146,29 +146,43 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form>
+                                            @error('nisn')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                            @error('name')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                            @error('brks_ijasah')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                            <form method="POST" action="{{ route('aktivasi') }}"
+                                                enctype="multipart/form-data">
+                                                @csrf
                                                 <div class="form-group form-sm">
                                                     <label for="recipient-name" class=" col-form-label">Nama:</label>
-                                                    <input type="text" class="form-control" id="recipient-name">
+                                                    <input type="text" name="name" class="form-control"
+                                                        id="name">
                                                 </div>
                                                 <div class="form-group mt-3 form-sm">
                                                     <label for="nisn" class=" col-form-label">NISN:</label>
-                                                    <input type="text" class="form-control" id="nisn">
+                                                    <input type="text" name="nisn" class="form-control"
+                                                        id="nisn">
                                                 </div>
-                                                <p class="mt-4" for="">Upload Berkas Ijazah</p>
-                                                <div class=" form-group ">
-                                                    <input type="file" accept="application/pdf"
-                                                        class="custom-file-input" id="customFile">
-                                                    <label class="custom-file-label" for="customFile">Choose
-                                                        file</label>
+                                                <p class="mt-4" for="">Upload Berkas Ijazah (maks. 2 MB,
+                                                    Format. PDF atau Image)</p>
+                                                <div class="form-group form-sm">
+                                                    <input type="file" class="form-control-file" id="brks_ijasah"
+                                                        name="brks_ijasah">
                                                 </div>
-                                            </form>
+
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
+                                            <button type="button" class="btn btn-danger"
                                                 data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-info">Aktivasi</button>
+                                            <button type="submit" class="btn btn-success">Aktivasi</button>
                                         </div>
+                                        </form>
+
                                     </div>
                                 </div>
                             </div>

@@ -145,7 +145,6 @@ class AlumnisController extends Controller
             $alumnus->lnjt_sklh = $request->input('lnjt_sklh');
 
 
-
             if ($request->hasFile('foto')) {
                 if (File::exists(public_path('images/' . $alumnus->foto))) {
                     File::delete(public_path('images/' . $alumnus->foto));
@@ -153,8 +152,6 @@ class AlumnisController extends Controller
                 $imageName = time() . '.' . $request->file('foto')->extension();
                 $request->file('foto')->move(public_path('images'), $imageName);
                 $alumnus->foto = $imageName;
-            } else {
-
             }
             $alumnus->save();
 

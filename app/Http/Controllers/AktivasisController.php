@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Http\Request;
+use App\Models\Alumnus;
 use App\Models\Aktivasi;
 use App\Http\Requests\AktivasiRequest;
 
@@ -17,7 +19,7 @@ class AktivasisController extends Controller
     public function index()
     {
         $aktivasis = Aktivasi::all();
-        return view('aktivasis.index', ['aktivasis' => $aktivasis]);
+        return view('m_aktivasi.index_aktivasi', ['aktivasis' => $aktivasis]);
     }
 
     /**
@@ -36,15 +38,10 @@ class AktivasisController extends Controller
      * @param  AktivasiRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(AktivasiRequest $request)
+    public function store(Request $request, $id)
     {
-        $aktivasi = new Aktivasi;
-        $aktivasi->name = $request->input('name');
-        $aktivasi->nisn = $request->input('nisn');
-        $aktivasi->brks_ijasah = $request->input('brks_ijasah');
-        $aktivasi->save();
 
-        return to_route('aktivasis.index');
+
     }
 
     /**
@@ -78,15 +75,20 @@ class AktivasisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(AktivasiRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $aktivasi = Aktivasi::findOrFail($id);
-        $aktivasi->name = $request->input('name');
-        $aktivasi->nisn = $request->input('nisn');
-        $aktivasi->brks_ijasah = $request->input('brks_ijasah');
-        $aktivasi->save();
+        $alumnus = new Alumnus;
+        $alumnus->name = $request->input('name');
+        $alumnus->nisn = $request->input('nisn');
+        $alumnus->password = $request->input('nisn');
+        $alumnus->save();
+
+        $deleteAlumnus = Aktivasi::findOrFail($id);
+        $deleteAlumnus->delete();
+
 
         return to_route('aktivasis.index');
+
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Aktivasi;
 
 class LoginController extends Controller
 {
@@ -24,7 +25,6 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        // $credentials = $request->all();
         $credentials = $request->except(['_token']);
 
         if ($credentials)
@@ -49,12 +49,48 @@ class LoginController extends Controller
         return view('login.page.login');
 
     }
-    /**
-     * Logout the user, invalidate session, regenerate token, and return the login page view with a success alert.
-     *
-     * @param Request $request The request object
-     * @return View
-     */
+
+    public function aktivasi(Request $request)
+    {
+
+        $validator = $request->validate([
+            'nisn' => 'required',
+            'name' => 'required',
+            'brks_ijasah' => 'required',
+        ]);
+
+        if ($validator) {
+            $aktivasi = new Aktivasi;
+            $aktivasi->nisn = $request->input('nisn');
+            $aktivasi->name = $request->input('name');
+            $aktivasi->brks_ijasah = $request->input('brks_ijasah');
+            if ($request->hasFile('brks_ijasah')) {
+
+                $fileExtension = $request->file('brks_ijasah')->extension();
+                if ($fileExtension == 'pdf' || $fileExtension == 'jpg') {
+                    $brksIjasahName = time() . '.' . $fileExtension;
+                    $request->file('brks_ijasah')->move(public_path('berkas-ijasah'), $brksIjasahName);
+                    $aktivasi->brks_ijasah = $brksIjasahName;
+                } else {
+                    return view('login.page.login')->with([
+                        alert()->Error('Format Berkas Tidak Didukung', 'Silahkan Masukan Berkas PDF atau JPG...')
+                    ]);
+                }
+            } else {
+                // $aktivasi->brks_ijasah = 'Tidak ada Foto/Berkas';
+            }
+
+            $aktivasi->save();
+            return view('login.page.login')->with([
+                alert()->Success('Berhasil Aktivasi Akun', 'Silahkan Tunggu Operator Kami Mengaktifkan Akun Anda...')
+            ]);
+        } else {
+            return view('login.page.login')->with([
+                alert()->Error('Gagal Aktivasi Akun', 'Silahkan Masukan Kembali...')
+            ]);
+        }
+    }
+
     public function logout(Request $request)
     {
         Auth::logout();
