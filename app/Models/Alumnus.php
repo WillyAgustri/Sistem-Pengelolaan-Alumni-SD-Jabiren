@@ -11,6 +11,7 @@ class Alumnus extends Authenticatable
     use HasFactory;
 
     protected $table = 'alumnis';
+    protected $primaryKey = 'id_alumni';
     protected $guard = "alumnis";
 
     protected $fillable = [
@@ -20,7 +21,7 @@ class Alumnus extends Authenticatable
         'tmpt_lahir',
         'tgl_lahir',
         'password',
-        'role'
+        'lnjt_sklh',
     ];
 
     protected $hidden = [

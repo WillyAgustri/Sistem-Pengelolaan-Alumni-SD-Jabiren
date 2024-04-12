@@ -32,7 +32,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Apakah Anda Yakin Ingin Log</p>
+                        <p>Apakah Anda Yakin Ingin Logout?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-primary" data-dismiss="modal">
@@ -201,7 +201,7 @@
                         document.write(new Date().getFullYear());
                     </script>
                     - developed by
-                    <b><a href="https://indrijunanda.gitlab.io/" target="_blank">Mirnawati</a></b>
+                    <b><a href="#" target="_blank">Mirnawati</a></b>
                 </span>
             </div>
         </div>

@@ -24,17 +24,18 @@ class AlumnusRequest extends FormRequest
     public function rules()
     {
         return
-        [
-			'name' => 'required',
-			'nisn' => 'required',
-			'id_tahun' => 'required',
-			'j_kelamin' => 'required',
-			'tmpt_lahir' => 'required',
-			'tgl_lahir' => 'required',
-			'phone_num' => 'required',
-			'alamat' => 'required',
-			'foto' => 'required',
-			'password' => 'required',
-        ];
+            [
+                'name' => 'required',
+                'nisn' => 'required',
+                'id_tahun' => 'required',
+                'j_kelamin' => 'required',
+                'tmpt_lahir' => 'required',
+                'tgl_lahir' => 'required',
+                'phone_num' => 'required',
+                'alamat' => 'required',
+                'foto' => 'required',
+                'password' => 'required',
+                'lnjt_sklh' => 'required',
+            ];
     }
 }

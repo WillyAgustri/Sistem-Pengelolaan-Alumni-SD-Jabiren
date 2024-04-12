@@ -26,6 +26,7 @@
                             <button class="btn btn-info" data-toggle="modal" data-target="#modalTambahAlumni">
                                 Tambah Data
                             </button>
+
                         </h6>
                     </div>
                     <div class="table-responsive p-3">
@@ -47,7 +48,6 @@
                                     <th>Nisn</th>
                                     <th>Name</th>
                                     <th>Tahun</th>
-
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>
@@ -55,12 +55,11 @@
                                 @foreach ($alumnis as $alumni)
                                     <tr>
                                         <td>{{ $alumni->id_alumni }}</td>
-                                        <td><img src="{{ asset('images/' . $alumni->foto) }}" width="200px"
-                                                alt="Foto Alumni"></td>
+                                        <td><img src="{{ $alumni->foto ? asset('images/' . $alumni->foto) : 'https://via.placeholder.com/150' }}"
+                                                width="100px" alt="Foto Alumni"></td>
                                         <td>{{ $alumni->nisn }}</td>
-                                        <td>{{ $alumni->nama }}</td>
-                                        <td>{{ $alumni->tahun }}</td>
-
+                                        <td>{{ $alumni->name }}</td>
+                                        <td>{{ $alumni->id_tahun }}</td>
                                         <td>
                                             <div class="btn-group dropleft align-items-center">
                                                 <button type="button" class="btn btn-primary dropdown-toggle "
@@ -75,23 +74,23 @@
                                                         </p>
                                                         <p>
                                                             ID Data
-                                                            :1
+                                                            : {{ $alumni->id_alumni }}
                                                         </p>
                                                     </div>
                                                     <hr class="solid" />
                                                     <div class="text-center ">
                                                         <div class="btn btn-secondary" data-toggle="modal"
                                                             data-target="#modalLihatAlumni{{ $alumni->id_alumni }}">
-                                                            Lihat Data
+                                                            <i class="fas fa-eye"></i> Lihat Data
                                                         </div>
                                                         <div class="btn btn-warning mt-2" data-toggle="modal"
                                                             data-target="#modalUbahAlumni{{ $alumni->id_alumni }}">
-                                                            Ubah
+                                                            <i class="fas fa-edit"></i> Ubah
                                                             Data
                                                         </div>
-                                                        <div class="btn btn-danger mt-2" data-toggle="modal"
+                                                        <div class="btn btn-sm btn-danger mt-2" data-toggle="modal"
                                                             data-target="#modalResetPassword{{ $alumni->id_alumni }}">
-                                                            Reset Password
+                                                            <i class="fas fa-key"></i> Reset Password
                                                         </div>
                                                     </div>
                                                 </div>
@@ -101,7 +100,7 @@
                                     {{-- Modal Lihat Data --}}
                                     <div class="modal fade" id="modalLihatAlumni{{ $alumni->id_alumni }}" tabindex="-1"
                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Lihat Data Alumni</h5>
@@ -111,16 +110,25 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>ID Data: {{ $alumni->id_alumni }}</p>
-                                                    <p>Nama: {{ $alumni->nama }}</p>
-                                                    <p>NISN: {{ $alumni->nisn }}</p>
-                                                    <p>Tahun: {{ $alumni->tahun }}</p>
-                                                    <p>Jenis Kelamin: {{ $alumni->j_kelamin }}</p>
-                                                    <p>Tempat Lahir: {{ $alumni->tmpt_lahir }}</p>
-                                                    <p>Tanggal Lahir: {{ $alumni->tgl_lahir }}</p>
-                                                    <p>Nomor Telepon: {{ $alumni->phone_num }}</p>
-                                                    <p>Alamat: {{ $alumni->alamat }}</p>
-                                                    <img src="{{ asset('storage/' . $alumni->foto) }}" width="100px">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <p>ID Data: {{ $alumni->id_alumni }}</p>
+                                                            <p>Nama: {{ $alumni->name }}</p>
+                                                            <p>NISN: {{ $alumni->nisn }}</p>
+                                                            <p>Tahun: {{ $alumni->id_tahun }}</p>
+                                                            <p>Jenis Kelamin: {{ $alumni->j_kelamin }}</p>
+                                                            <p>Tempat Lahir: {{ $alumni->tmpt_lahir }}</p>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <p>Tanggal Lahir: {{ $alumni->tgl_lahir }}</p>
+                                                            <p>Nomor Telepon: {{ $alumni->phone_num }}</p>
+                                                            <p>Alamat: {{ $alumni->alamat }}</p>
+                                                            <p>Lanjut Sekolah: {{ $alumni->lnjt_sklh }}</p>
+                                                            <p>Foto:</p>
+                                                            <img src="{{ asset('images/' . $alumni->foto) }}"
+                                                                width="100px">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -128,7 +136,7 @@
                                     {{-- Modal Ubah Data --}}
                                     <div class="modal fade" id="modalUbahAlumni{{ $alumni->id_alumni }}" tabindex="-1"
                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
+                                        <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="exampleModalLabel">Ubah Data Alumni</h5>
@@ -138,7 +146,8 @@
                                                     </button>
                                                 </div>
                                                 <form method="POST"
-                                                    action="{{ route('alumnis.update', $alumni->id_alumni) }}">
+                                                    action="{{ route('alumnis.update', $alumni->id_alumni) }}"
+                                                    enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-body">
@@ -156,9 +165,15 @@
                                                         </div>
                                                         <div class="form-row">
                                                             <div class="form-group form-sm col">
-                                                                <label for="tahun" class="col-form-label">Tahun</label>
-                                                                <input type="text" class="form-control" name="tahun"
-                                                                    id="tahun" value="{{ $alumni->tahun }}">
+                                                                <label for="id_tahun" class="col-form-label">Tahun</label>
+                                                                <select class="form-control" name="id_tahun"
+                                                                    id="id_tahun">
+                                                                    @foreach ($tahuns as $tahun)
+                                                                        <option value="{{ $tahun->tahun }}"
+                                                                            {{ $alumni->id_tahun == $tahun->id ? 'selected' : '' }}>
+                                                                            {{ $tahun->tahun }}</option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                                             <div class="form-group form-sm col">
                                                                 <label for="j_kelamin" class="col-form-label">Jenis
@@ -208,23 +223,30 @@
                                                         <div class="form-row">
                                                             <div class="form-group form-sm col">
                                                                 <label for="foto" class="col-form-label">Foto</label>
-                                                                <input type="text" class="form-control" name="foto"
-                                                                    id="foto" value="{{ $alumni->foto }}">
+                                                                <input value="{{ $alumni->foto }}" type="file"
+                                                                    class="form-control" name="foto" id="foto"
+                                                                    onchange="previewFileEdit(this)">
+                                                                <img src="{{ asset('images/' . $alumni->foto) }}"
+                                                                    id="previewImgEdit" width="100px">
+                                                                <script>
+                                                                    function previewFileEdit(input) {
+                                                                        var file = input.files[0];
+                                                                        if (file) {
+                                                                            var reader = new FileReader();
+                                                                            reader.onload = function() {
+                                                                                $("#previewImgEdit").attr("src", reader.result);
+                                                                            }
+                                                                            reader.readAsDataURL(file);
+                                                                        }
+                                                                    }
+                                                                </script>
                                                             </div>
                                                             <div class="form-group form-sm col">
-                                                                <label for="password"
-                                                                    class="col-form-label">Password</label>
+                                                                <label for="lnjt_sklh" class="col-form-label">Lanjut
+                                                                    Sekolah</label>
                                                                 <input type="text" class="form-control"
-                                                                    name="password" id="password" value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-row">
-                                                            <div class="form-group form-sm col">
-                                                                <label for="password_confirmation"
-                                                                    class="col-form-label">Konfirmasi Password</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="password_confirmation"
-                                                                    id="password_confirmation" value="">
+                                                                    name="lnjt_sklh" id="lnjt_sklh"
+                                                                    value="{{ $alumni->lnjt_sklh }}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -279,17 +301,11 @@
                                                     </button>
                                                 </div>
                                                 <form method="POST"
-                                                    action="{{ route('alumnis.update', $alumni->id_alumni) }}">
+                                                    action="{{ route('reset-password', $alumni->id_alumni) }}">
                                                     @csrf
                                                     <div class="modal-body">
-                                                        <div class="form-row">
-                                                            <div class="form-group form-sm col">
-                                                                <label for="new_password" class="col-form-label">New
-                                                                    Password</label>
-                                                                <input type="password" class="form-control"
-                                                                    name="new_password" id="new_password" value="">
-                                                            </div>
-                                                        </div>
+                                                        <p>Reset Password
+                                                            {{ $alumni->name }} ke Default (NISN)?</p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-danger"
@@ -302,10 +318,23 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                @if (count($errors) > 0)
+                                    <div class="container-fluid">
+                                        <h3>Gagal Menambah/Mengubah Data!</h3>
+                                        <div class=" alert alert-warning">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                @endif
+
                                 {{-- Modal Tambah Data --}}
                                 <div class="modal fade" id="modalTambahAlumni" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Tambah Data Alumni</h5>
@@ -320,21 +349,29 @@
                                                 <div class="modal-body">
                                                     <div class="form-row">
                                                         <div class="form-group form-sm col">
-                                                            <label for="name" class="col-form-label">Nama</label>
+                                                            <label for="name" class="col-form-label">Nama*</label>
                                                             <input type="text" class="form-control" name="name"
-                                                                id="name" value="">
+                                                                id="name" value="{{ old('name') }}">
                                                         </div>
                                                         <div class="form-group form-sm col">
-                                                            <label for="nisn" class="col-form-label">NISN</label>
+                                                            <label for="nisn" class="col-form-label">NISN*</label>
                                                             <input type="text" class="form-control" name="nisn"
-                                                                id="nisn" value="">
+                                                                id="nisn" value="{{ old('nisn') }}" required>
+                                                            @error('nisn')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group form-sm col">
-                                                            <label for="id_tahun" class="col-form-label">Tahun</label>
-                                                            <input type="text" class="form-control" name="id_tahun"
-                                                                id="id_tahun" value="">
+                                                            <label for="id_tahun" class="col-form-label">Tahun*</label>
+                                                            <select class="form-control" name="id_tahun" id="id_tahun">
+                                                                @foreach ($tahuns as $tahun)
+                                                                    <option value="{{ $tahun->tahun }}">
+                                                                        {{ $tahun->tahun }}</option>
+                                                                @endforeach
+
+                                                            </select>
                                                         </div>
                                                         <div class="form-group form-sm col">
                                                             <label for="j_kelamin" class="col-form-label">Jenis
@@ -350,42 +387,67 @@
                                                             <label for="tmpt_lahir" class="col-form-label">Tempat
                                                                 Lahir</label>
                                                             <input type="text" class="form-control" name="tmpt_lahir"
-                                                                id="tmpt_lahir" value="">
+                                                                id="tmpt_lahir" value="{{ old('tmpt_lahir') }}">
+                                                            @error('tmpt_lahir')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                         <div class="form-group form-sm col">
                                                             <label for="tgl_lahir" class="col-form-label">Tanggal
                                                                 Lahir</label>
                                                             <input type="date" class="form-control" name="tgl_lahir"
-                                                                id="tgl_lahir" value="">
+                                                                id="tgl_lahir" value="{{ old('tgl_lahir') }}">
+                                                            @error('tgl_lahir')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group form-sm col">
                                                             <label for="phone_num" class="col-form-label">Nomor
-                                                                Telepon</label>
+                                                                Telepon (Opsional)</label>
                                                             <input type="text" class="form-control" name="phone_num"
-                                                                id="phone_num" value="">
+                                                                id="phone_num" value="{{ old('phone_num') }}">
+                                                            @error('phone_num')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                         <div class="form-group form-sm col">
                                                             <label for="alamat" class="col-form-label">Alamat</label>
                                                             <input type="text" class="form-control" name="alamat"
-                                                                id="alamat" value="">
+                                                                id="alamat" value="{{ old('alamat') }}">
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group form-sm col">
-                                                            <label for="foto" class="col-form-label">Foto</label>
+                                                            <label for="foto" class="col-form-label">Foto (Maks.
+                                                                2MB)</label>
                                                             <input type="file" class="form-control" name="foto"
-                                                                id="foto" onchange="previewFile(this);">
-                                                            <img id="previewImg" src=""
+                                                                id="fotoedit" accept="image/*"
+                                                                onchange="previewFileTambah(this);">
+                                                            <img id="previewImgTambah" src=""
                                                                 style="max-width: 130px; margin-top:20px;">
                                                         </div>
+                                                        <script>
+                                                            function previewFileTambah(input) {
+                                                                var file = input.files[0];
+                                                                if (file) {
+                                                                    var reader = new FileReader();
+                                                                    reader.onload = function() {
+                                                                        $("#previewImgTambah").attr("src", reader.result);
+                                                                    }
+                                                                    reader.readAsDataURL(file);
+                                                                }
+                                                            }
+                                                        </script>
                                                         <div class="form-group form-sm col">
-                                                            <label for="password" class="col-form-label">Password</label>
-                                                            <input type="text" class="form-control" name="password"
-                                                                id="password" value="">
+                                                            <label for="lnjt_sklh" class="col-form-label">Pendidikan
+                                                                Lanjut (SMP) </label>
+                                                            <input type="text" class="form-control" name="lnjt_sklh"
+                                                                id="lnjt_sklh" value="{{ old('lnjt_sklh') }}">
                                                         </div>
                                                     </div>
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-danger"
@@ -396,18 +458,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <script>
-                                    function previewFile(input) {
-                                        var file = $("input[type=file]").get(0).files[0];
-                                        if (file) {
-                                            var reader = new FileReader();
-                                            reader.onload = function() {
-                                                $("#previewImg").attr("src", reader.result);
-                                            }
-                                            reader.readAsDataURL(file);
-                                        }
-                                    }
-                                </script>
+
                             </tbody>
                         </table>
                     </div>

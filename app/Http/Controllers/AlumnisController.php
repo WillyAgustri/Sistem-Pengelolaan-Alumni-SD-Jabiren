@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
+use File;
 use App\Models\Alumnus;
+use App\Models\Tahun;
 use Illuminate\Http\Request;
 use App\Http\Requests\AlumnusRequest;
 
@@ -17,8 +19,12 @@ class AlumnisController extends Controller
      */
     public function index()
     {
+        $tahuns = Tahun::all();
         $alumnis = Alumnus::all();
-        return view('m_alumni.index_alumni', ['alumnis' => $alumnis]);
+        return view('m_alumni.index_alumni', [
+            'tahuns' => $tahuns,
+            'alumnis' => $alumnis
+        ]);
     }
 
     /**
@@ -39,12 +45,20 @@ class AlumnisController extends Controller
      */
     public function store(Request $request)
     {
-        $validates = $request->validate([
-            'nisn' => 'unique:alumnis',
+        $validated = $request->validate([
+            'name' => 'required',
+            'nisn' => 'required|unique:alumnis',
+            'id_tahun' => 'required',
+
+        ], [
+            'name.required' => 'Nama tidak boleh kosong',
+            'nisn.unique' => 'NISN sudah terdaftar',
+            'id_tahun.required' => 'Tahun tidak boleh kosong',
+
+
         ]);
 
-        if ($validates) {
-            dd('ini work');
+        if ($validated) {
             $alumnus = new Alumnus;
             $alumnus->name = $request->input('name');
             $alumnus->nisn = $request->input('nisn');
@@ -54,6 +68,7 @@ class AlumnisController extends Controller
             $alumnus->tgl_lahir = $request->input('tgl_lahir');
             $alumnus->phone_num = $request->input('phone_num');
             $alumnus->alamat = $request->input('alamat');
+            $alumnus->lnjt_sklh = $request->input('lnjt_sklh');
             if ($request->hasFile('foto')) {
                 $imageName = time() . '.' . $request->file('foto')->extension();
                 $request->file('foto')->move(public_path('images'), $imageName);
@@ -61,17 +76,13 @@ class AlumnisController extends Controller
             } else {
                 $alumnus->foto = 'Tidak ada Foto';
             }
-            $alumnus->password = $request->input('password');
+            $alumnus->password = $request->input('nisn');
+            // save data
             $alumnus->save();
-
             return to_route('alumnis.index');
         } else {
-            dd('ini work else');
-            return view('m_alumni.index_alumni')->with([
-                alert()->Error('NISN atau Password Salah!', 'Silahkan Masukan Kembali...')
-            ]);
+            return redirect()->route('alumnis.index')->withErrors($validated);
         }
-
     }
 
     /**
@@ -105,22 +116,55 @@ class AlumnisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(AlumnusRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $alumnus = Alumnus::findOrFail($id);
-        $alumnus->name = $request->input('name');
-        $alumnus->nisn = $request->input('nisn');
-        $alumnus->id_tahun = $request->input('id_tahun');
-        $alumnus->j_kelamin = $request->input('j_kelamin');
-        $alumnus->tmpt_lahir = $request->input('tmpt_lahir');
-        $alumnus->tgl_lahir = $request->input('tgl_lahir');
-        $alumnus->phone_num = $request->input('phone_num');
-        $alumnus->alamat = $request->input('alamat');
-        $alumnus->foto = $request->input('foto');
-        $alumnus->password = $request->input('password');
-        $alumnus->save();
+
+        $validated = $request->validate([
+            'name' => 'required',
+            'nisn' => 'required',
+            'id_tahun' => 'required',
+
+
+        ], [
+            'name.required' => 'Nama tidak boleh kosong',
+            'id_tahun.required' => 'Tahun tidak boleh kosong',
+
+
+        ]);
+
+        if ($validated) {
+            $alumnus = Alumnus::findOrFail($id);
+            $alumnus->name = $request->input('name');
+            $alumnus->nisn = $request->input('nisn');
+            $alumnus->id_tahun = $request->input('id_tahun');
+            $alumnus->j_kelamin = $request->input('j_kelamin');
+            $alumnus->tmpt_lahir = $request->input('tmpt_lahir');
+            $alumnus->tgl_lahir = $request->input('tgl_lahir');
+            $alumnus->phone_num = $request->input('phone_num');
+            $alumnus->alamat = $request->input('alamat');
+            $alumnus->lnjt_sklh = $request->input('lnjt_sklh');
+
+
+
+            if ($request->hasFile('foto')) {
+                if (File::exists(public_path('images/' . $alumnus->foto))) {
+                    File::delete(public_path('images/' . $alumnus->foto));
+                }
+                $imageName = time() . '.' . $request->file('foto')->extension();
+                $request->file('foto')->move(public_path('images'), $imageName);
+                $alumnus->foto = $imageName;
+            } else {
+
+            }
+            $alumnus->save();
+
+            return to_route('alumnis.index');
+        }
 
         return to_route('alumnis.index');
+
+
+
     }
 
     /**
@@ -132,8 +176,23 @@ class AlumnisController extends Controller
     public function destroy($id)
     {
         $alumnus = Alumnus::findOrFail($id);
+        if (File::exists(public_path('images/' . $alumnus->foto))) {
+            File::delete(public_path('images/' . $alumnus->foto));
+        }
         $alumnus->delete();
 
         return to_route('alumnis.index');
     }
+
+
+    public function reset_password($id)
+    {
+
+        $alumnus = Alumnus::findOrFail($id);
+        $alumnus->password = $alumnus->nisn;
+        // save data
+        $alumnus->save();
+        return to_route('alumnis.index');
+    }
+
 }

@@ -36,27 +36,31 @@ Route::middleware(['auth:alumnis'])->group(function () {
 
 });
 
-Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/dashboards', function () {
-        return view('dashboard/dashboard');
-    });
+Route::middleware(['auth:admin'])->group(
+    function () {
+        Route::get('/dashboards', function () {
+            return view('dashboard/dashboard');
+        });
 
 
 
-    Route::get('/manage-aktivasi', function () {
-        return view('m_aktivasi/index_aktivasi');
-    });
-    Route::get('/manage-grafik', function () {
-        return view('m_grafik/index_grafik');
-    });
-    Route::get('/manage-profil', function () {
-        return view('m_profil/index_profil');
-    });
+        Route::get('/manage-aktivasi', function () {
+            return view('m_aktivasi/index_aktivasi');
+        });
+        Route::get('/manage-grafik', function () {
+            return view('m_grafik/index_grafik');
+        });
+        Route::get('/manage-profil', function () {
+            return view('m_profil/index_profil');
+        });
 
-    Route::resource('/manage-admin', AdminsController::class)->names('admins');
-    Route::resource('/manage-alumni', AlumnisController::class)->names('alumnis');
-    Route::resource('/manage-tahun', TahunsController::class)->names('tahuns');
-    Route::resource('aktivasis', AktivasisController::class);
-});
+        Route::resource('/manage-admin', AdminsController::class)->names('admins');
+        Route::resource('/manage-alumni', AlumnisController::class)->names('alumnis');
+        Route::resource('/manage-tahun', TahunsController::class)->names('tahuns');
+        Route::resource('aktivasis', AktivasisController::class);
+
+        Route::post('/reset-password/{id}', [AlumnisController::class, 'reset_password'])->name('reset-password');
+    }
+);
 
 
