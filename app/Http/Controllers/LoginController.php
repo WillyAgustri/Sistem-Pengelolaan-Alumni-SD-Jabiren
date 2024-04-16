@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Aktivasi;
 
@@ -32,6 +31,7 @@ class LoginController extends Controller
             if (Auth::guard('admin')->attempt($credentials)) {
                 $request->session()->regenerate();
                 return redirect('/dashboards');
+
             } else if (array_key_exists('username', $credentials)) {
                 $credentials['nisn'] = $credentials['username'];
                 unset($credentials['username']);
@@ -57,7 +57,12 @@ class LoginController extends Controller
             'nisn' => 'required',
             'name' => 'required',
             'brks_ijasah' => 'required',
-        ]);
+        ],[
+            'name.required' => 'Nama tidak boleh kosong',
+            'nisn.required' => 'NISN tidak boleh kosong',
+            'brks_ijasah.required' => 'File Ijasah tidak boleh kosong',
+        ]
+    );
 
         if ($validator) {
             $aktivasi = new Aktivasi;
@@ -72,23 +77,20 @@ class LoginController extends Controller
                     $request->file('brks_ijasah')->move(public_path('berkas-ijasah'), $brksIjasahName);
                     $aktivasi->brks_ijasah = $brksIjasahName;
                 } else {
-                    return view('login.page.login')->with([
-                        alert()->Error('Format Berkas Tidak Didukung', 'Silahkan Masukan Berkas PDF atau JPG...')
-                    ]);
+                    return back()->withErrors(['brks_ijasah' => 'File Ijasah Harus Berupa PDF atau JPG'])->withInput();
                 }
-            } else {
-                // $aktivasi->brks_ijasah = 'Tidak ada Foto/Berkas';
-            }
+            } 
 
             $aktivasi->save();
-            return view('login.page.login')->with([
-                alert()->Success('Berhasil Aktivasi Akun', 'Silahkan Tunggu Operator Kami Mengaktifkan Akun Anda...')
+            return back()->with([
+                'success' => 'Berhasil Aktivasi Akun, Silahkan Tunggu Operator Kami Mengaktifkan Akun Anda...'
             ]);
         } else {
             return view('login.page.login')->with([
                 alert()->Error('Gagal Aktivasi Akun', 'Silahkan Masukan Kembali...')
             ]);
         }
+    
     }
 
     public function logout(Request $request)

@@ -39,4 +39,7 @@ class Alumnus extends Authenticatable
     }
 
 
+    public function tahun(){
+        return $this->belongsTo(Tahun::class, 'id_tahun');
+    }
 }

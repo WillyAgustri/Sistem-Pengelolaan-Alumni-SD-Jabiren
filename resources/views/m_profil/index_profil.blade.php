@@ -20,14 +20,15 @@
                 <div class="col-sm-4 mb-4">
                     <h2 class="">Informasi Profil</h2>
                     <div class="card" style='height:200px;width:200px'>
-                        <img src="{{ asset('images/' . Auth::user()->foto) }}" class="img-fluid" alt="Gambar">
+                        <img src="{{ asset('images/' . Auth::user()->foto) }}" style='height:200px;width:200px'
+                            class="img-fluid" alt="Gambar">
                     </div>
 
                     <div class="d-flex mb-1 mt-2">
                         <div class="mr-2">
                             <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal"
                                 data-target="#gantiFoto">
-                                Ganti Foto
+                                <i class="fas fa-camera"></i> Ganti Foto
                             </button>
                         </div>
 
@@ -68,8 +69,8 @@
                                         }
                                     </script>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-success">Simpan</button>
                                         </form>
                                     </div>
                                 </div>
@@ -78,7 +79,7 @@
 
                         <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal"
                             data-target="#gantiPassword">
-                            Ganti Password
+                            <i class="fas fa-key mr-2"></i>Ganti Password
                         </button>
                         <!-- Modal Ganti Password -->
                         <div class="modal fade" id="gantiPassword" tabindex="-1" role="dialog"
@@ -132,8 +133,10 @@
                                                     <small class="text-danger">{{ $message }}</small>
                                                 @enderror
                                             </div>
-                                            <div class="d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                    data-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-success">Simpan</button>
                                             </div>
                                         </form>
                                     </div>
@@ -168,8 +171,9 @@
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-warning" data-toggle="modal"
                             data-target="#editProfilModal">
-                            Edit Profil
+                            <i class="fas fa-edit"></i> Edit Profil
                         </button>
+
                         <!-- Modal Update Profile -->
                         <div class="modal fade" id="editProfilModal" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -206,9 +210,8 @@
                                             </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-success">Simpan</button>
                                     </div>
                                     </form>
                                 </div>

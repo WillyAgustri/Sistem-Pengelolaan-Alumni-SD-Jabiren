@@ -32,49 +32,22 @@ class AktivasisController extends Controller
         return view('aktivasis.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  AktivasiRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Request $request, $id)
-    {
 
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Contracts\View\View
-     */
     public function show($id)
     {
         $aktivasi = Aktivasi::findOrFail($id);
         return view('aktivasis.show', ['aktivasi' => $aktivasi]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Contracts\View\View
-     */
+ 
     public function edit($id)
     {
         $aktivasi = Aktivasi::findOrFail($id);
         return view('aktivasis.edit', ['aktivasi' => $aktivasi]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  AktivasiRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
+
     public function update(Request $request, $id)
     {
         $alumnus = new Alumnus;
@@ -91,17 +64,19 @@ class AktivasisController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
+
     public function destroy($id)
     {
         $aktivasi = Aktivasi::findOrFail($id);
         $aktivasi->delete();
 
         return to_route('aktivasis.index');
+    }
+
+
+    public function get_download($id){
+        $filePath = storage_path('app/public/aktivasi/'.$id.'.pdf');
+        return response()->download($filePath);
+
     }
 }

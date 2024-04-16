@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link href="img/logo/logo.png" rel="icon" />
+    <link
+        href="https://png.pngtree.com/png-clipart/20220919/original/pngtree-indonesian-elementary-school-boy-character-vector-illustration-png-image_8624210.png"
+        rel="icon" />
     <title>SDN 1 Jabiren Raya</title>
     <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('dashboard/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -158,16 +160,13 @@
                                     @auth('admin')
                                         {{ auth('admin')->user()->name }}
                                     @endauth
-
                                     @auth('alumnis')
                                         {{ auth('alumnis')->user()->name }}
                                     @endauth
-
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="d" data-toggle="modal"
                                     data-target="#logoutModals">
@@ -175,7 +174,6 @@
                                     Logout
                                 </a>
                             </div>
-
                         </li>
                     </ul>
                 </nav>

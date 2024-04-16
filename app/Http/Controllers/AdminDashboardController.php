@@ -13,8 +13,16 @@ class AdminDashboardController extends Controller
         $adminCount = Admin::count();
         $alumniCount = Alumnus::count();
         $tahunCount = Tahun::count();
-        $lanjutSekolahCount = Alumnus::whereNotNull('lnjt_sklh')->count();
+        $getTahun = Tahun::all();
+        $alumniPerTahun = [];
+        foreach ($getTahun as $tahun) {
+            $alumniPerTahun[$tahun->tahun] = Alumnus::where('id_tahun', $tahun->tahun)->count() ?: 0;
+        }
 
-        return view('admin.dashboard', compact('adminCount', 'alumniCount', 'tahunCount', 'lanjutSekolahCount'));
+
+        $lanjutSekolahCount = Alumnus::whereNotNull('lnjt_sklh')->count();
+        $tidakLanjutSekolahCount = Alumnus::where('lnjt_sklh', null)->orWhere('lnjt_sklh', '')->count();
+
+        return view('dashboard.dashboard', compact('adminCount', 'alumniCount', 'tahunCount', 'lanjutSekolahCount','getTahun','alumniPerTahun','tidakLanjutSekolahCount'));
     }
 }

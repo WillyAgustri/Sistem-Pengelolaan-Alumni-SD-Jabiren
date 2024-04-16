@@ -31,7 +31,7 @@
                                         Jumlah Admin
                                     </div>
                                     <div class="h5  mb-0 font-weight-bold text-gray-800">
-                                        60
+                                        {{ $adminCount }}
                                     </div>
                                     <div class="mt-3 mb-0 text-muted text-xs">
                                         <button class="btn btn-sm btn-primary">
@@ -56,7 +56,7 @@
                                         Jumlah Siswa
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        650
+                                        {{ $alumniCount }}
                                     </div>
                                     <div class="mt-3 mb-0 text-muted text-xs">
                                         <button class="btn btn-sm btn-primary">
@@ -81,7 +81,7 @@
                                         Jumlah Angkatan
                                     </div>
                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                        3
+                                        {{ $tahunCount }}
                                     </div>
                                     <div class="mt-3 mb-0 text-muted text-xs">
                                         <button class="btn btn-sm btn-primary">
@@ -96,6 +96,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- Jumlah Lanjut Sekolah -->
                 <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card h-100">
@@ -106,7 +107,7 @@
                                         Jumlah Lanjut Sekolah
                                     </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        18
+                                        {{ $lanjutSekolahCount }}
                                     </div>
                                     <div class="mt-3 mb-0 text-muted text-xs">
                                         <button class="btn btn-sm btn-primary">
@@ -127,7 +128,7 @@
                     <div class="card mb-4">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">
-                                Rekaptulasi Siswa Per Tahun
+                                Rekapitulasi Alumni Per Tahun
                             </h6>
 
                         </div>
@@ -150,13 +151,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
             <!--Row-->
         @endauth
-
         @auth('alumnis')
             <div class="row mb-3">
                 <!-- Jumlah Admin-->
@@ -198,6 +196,7 @@
                                     <div class="mt-3 mb-0 text-muted text-xs">
                                         <button class="btn btn-sm btn-primary">
                                             Lihat Selengkapnya
+
                                         </button>
                                     </div>
                                 </div>
@@ -208,15 +207,27 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
     @endauth
-
     </div>
     <!---Container Fluid-->
+    </div>
+    </div>
 
-    </div>
-    </div>
+    {{-- Grafik Value --}}
+    @php
+        $dataAlumni = [];
+        foreach ($alumniPerTahun as $tahun => $jumlah) {
+            $dataAlumni[] = [
+                'tahun' => $tahun,
+                'jumlah' => $jumlah,
+            ];
+        }
+    @endphp
+    <script>
+        var alumni = <?= json_encode($dataAlumni) ?>;
+        var tidakLanjutSekolahCount = <?= $tidakLanjutSekolahCount ?>;
+        var lanjutSekolahCount = <?= $lanjutSekolahCount ?>;
+    </script>
 @endsection

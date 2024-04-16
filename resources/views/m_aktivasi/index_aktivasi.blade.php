@@ -126,10 +126,11 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     @if (pathinfo($aktivasi->brks_ijasah, PATHINFO_EXTENSION) == 'pdf')
-                                                        <iframe
-                                                            src="{{ asset('berkas-ijasah/' . $aktivasi->brks_ijasah) }}"
-                                                            style="width:100%; height:500px;" frameborder="0">
-                                                        </iframe>
+                                                        <p class="">Berkas ini Berbentuk PDF,Untuk Melihat Berkas
+                                                            Ijazah Silahkan Download :
+                                                        </p>
+                                                        <a href="{{ asset('berkas-ijasah/' . $aktivasi->brks_ijasah) }}">Download
+                                                            PDF</a>
                                                     @else
                                                         <img src="{{ asset('berkas-ijasah/' . $aktivasi->brks_ijasah) }}"
                                                             alt="Berkas Ijazah" style="width:100%;">

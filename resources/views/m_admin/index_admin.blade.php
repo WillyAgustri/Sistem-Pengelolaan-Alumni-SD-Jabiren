@@ -24,7 +24,7 @@
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">
                             <button class="btn btn-info" data-toggle="modal" data-target="#modalTambahAdmin">
-                                Tambah Data
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data
                             </button>
 
                         </h6>
@@ -57,7 +57,8 @@
                                 @foreach ($admins as $admin)
                                     <tr>
                                         <td>{{ $admin->id }}</td>
-                                        <td>{{ $admin->foto }}</td>
+                                        <td><img src="{{ $admin->foto ? asset('images/' . $admin->foto) : 'https://via.placeholder.com/150' }}"
+                                                width="100px" alt="Foto Admin"></td>
                                         <td>{{ $admin->name }}</td>
                                         <td>{{ $admin->username }}</td>
                                         <td>(Encrypt Password)</td>
@@ -83,12 +84,12 @@
                                                     <div class="text-center mt-2">
                                                         <div class="btn btn-warning" data-toggle="modal"
                                                             data-target="#modalUbahAdmin{{ $admin->id }}">
-                                                            Ubah
+                                                            <i class="fas fa-edit mr-2"></i> Ubah
                                                             Data
                                                         </div>
                                                         <div class="btn btn-danger mt-2" data-toggle="modal"
                                                             data-target="#modalHapusAdmin{{ $admin->id }}">
-                                                            Hapus
+                                                            <i class="fas fa-trash-alt mr-2"></i> Hapus
                                                             Data
                                                         </div>
                                                     </div>
@@ -208,7 +209,19 @@
                                                         <input type="text" class="form-control" name="password"
                                                             id="password">
                                                     </div>
-
+                                                    <div class="form-group form-sm">
+                                                        <label for="foto" class=" col-form-label">Foto Profil
+                                                            (Opsional)</label>
+                                                        <input type="file" class="form-control-file" name="foto"
+                                                            id="foto" onchange="loadFile(event)">
+                                                        <img id="output" width="150" />
+                                                    </div>
+                                                    <script>
+                                                        var loadFile = function(event) {
+                                                            var output = document.getElementById('output');
+                                                            output.src = URL.createObjectURL(event.target.files[0]);
+                                                        };
+                                                    </script>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-danger"

@@ -7,6 +7,7 @@ use App\Http\Controllers\AlumnisController;
 use App\Http\Controllers\AdminsController;
 use App\Http\Controllers\TahunsController;
 use App\Http\Controllers\AktivasisController;
+use App\Http\Controllers\AdminDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ use App\Http\Controllers\AktivasisController;
 |
 */
 Route::resource('/', LoginController::class)->names('login');
+// Aktivasi Akun 
 Route::post('/aktivasi-akun', [LoginController::class, 'aktivasi'])->name('aktivasi');
 
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
@@ -40,9 +42,6 @@ Route::middleware(['auth:alumnis'])->group(function () {
 
 Route::middleware(['auth:admin'])->group(
     function () {
-        Route::get('/dashboards', function () {
-            return view('dashboard/dashboard');
-        });
 
 
 
@@ -50,6 +49,9 @@ Route::middleware(['auth:admin'])->group(
             return view('m_grafik/index_grafik');
         });
 
+
+        // Dashboard Admin
+        Route::get('/dashboards',[AdminDashboardController::class, 'index'])->name('dashboard.admin');
 
         // Manajemen Profil Admin
         Route::resource('/setting-profil', AdminProfileController::class)->names('setting-profil');

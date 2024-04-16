@@ -11,7 +11,7 @@ var myPieChart = new Chart(ctx, {
         labels: ["Tidak Lanjut Sekolah", "Lanjut Sekolah"],
         datasets: [
             {
-                data: [55, 30],
+                data: [tidakLanjutSekolahCount, lanjutSekolahCount],
                 backgroundColor: ["#4e73df", "#1cc88a"],
                 hoverBackgroundColor: ["#2e59d9", "#17a673"],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -20,6 +20,9 @@ var myPieChart = new Chart(ctx, {
     },
     options: {
         maintainAspectRatio: false,
+        legend: {
+            position: "left",
+        },
         tooltips: {
             backgroundColor: "rgb(255,255,255)",
             bodyFontColor: "#858796",
@@ -30,9 +33,5 @@ var myPieChart = new Chart(ctx, {
             displayColors: false,
             caretPadding: 10,
         },
-        legend: {
-            display: false,
-        },
-        cutoutPercentage: 80,
     },
 });

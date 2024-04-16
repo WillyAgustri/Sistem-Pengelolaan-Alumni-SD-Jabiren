@@ -6,7 +6,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet" />
-
+    <link
+        href="https://png.pngtree.com/png-clipart/20220919/original/pngtree-indonesian-elementary-school-boy-character-vector-illustration-png-image_8624210.png"
+        rel="icon" />
     <link rel="stylesheet" href="{{ asset('/login/fonts/icomoon/style.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('login/css/owl.carousel.min.css') }}" />
@@ -17,7 +19,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="{{ asset('login/css/style.css') }}" />
 
-    <title>Login #7</title>
+    <title>Masuk-SDN 1</title>
 </head>
 
 <body>
@@ -94,6 +96,20 @@
                 <div class="col-md-6 contents">
                     <div class="row justify-content-center">
                         <div class="col-lg-11 card shadow p-4">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            @if (session()->has('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
                             <div class="mb-4">
                                 <h3>Masuk</h3>
                                 <p class="mb-4">
@@ -107,7 +123,6 @@
                                     <label for="username">Nisn</label>
                                     <input type="text" class="form-control" name="username" id="username"
                                         required />
-
                                 </div>
                                 <div class="form-group last mb-4 mt-3">
                                     <label for="password" class="form-label">Password</label>
@@ -120,20 +135,15 @@
                                             background-color: #ff204e;
                                             color: white;
                                         " />
-
-                                <a class="m-2" href="../dashboards">
-                                    Demo Admin
-                                </a>
-                                <a c href="../alumni">
-                                    Demo Alumni
-                                </a>
-                                <span class="d-block  mt-4 text-muted">
-                                    Data Anda Tidak Terdaftar Pada Sistem?, Aktivasi Pada Tombol Dibawah Ini :
-
-                                </span>
-                                <button type="button" class="btn btn-secondary " data-toggle="modal"
-                                    data-target="#exampleModal">Aktivasi Akun</button>
                             </form>
+
+                            <span class="d-block  mt-4 text-muted">
+                                Data Anda Tidak Terdaftar Pada Sistem?, Aktivasi Pada Tombol Dibawah Ini :
+
+                            </span>
+                            <button type="button" class="btn btn-secondary " data-toggle="modal"
+                                data-target="#exampleModal">Aktivasi Akun</button>
+
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -160,19 +170,20 @@
                                                 @csrf
                                                 <div class="form-group form-sm">
                                                     <label for="recipient-name" class=" col-form-label">Nama:</label>
-                                                    <input type="text" name="name" class="form-control"
-                                                        id="name">
+                                                    <input type="text" name="name" value="{{ old('name') }}"
+                                                        required class="form-control" id="name">
                                                 </div>
                                                 <div class="form-group mt-3 form-sm">
                                                     <label for="nisn" class=" col-form-label">NISN:</label>
-                                                    <input type="text" name="nisn" class="form-control"
-                                                        id="nisn">
+                                                    <input type="text" name="nisn" value="{{ old('nisn') }}"
+                                                        required class="form-control" id="nisn">
                                                 </div>
-                                                <p class="mt-4" for="">Upload Berkas Ijazah (maks. 2 MB,
+                                                <p class="mt-4" for="">Upload Berkas Ijazah (maks. 2
+                                                    MB,
                                                     Format. PDF atau Image)</p>
                                                 <div class="form-group form-sm">
                                                     <input type="file" class="form-control-file" id="brks_ijasah"
-                                                        name="brks_ijasah">
+                                                        name="brks_ijasah" required>
                                                 </div>
 
                                         </div>
@@ -182,7 +193,6 @@
                                             <button type="submit" class="btn btn-success">Aktivasi</button>
                                         </div>
                                         </form>
-
                                     </div>
                                 </div>
                             </div>

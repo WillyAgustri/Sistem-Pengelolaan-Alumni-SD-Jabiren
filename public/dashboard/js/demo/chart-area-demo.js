@@ -33,7 +33,11 @@ var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
     type: "line",
     data: {
-        labels: ["2019", "2020", "2021", "2022", "2023", "2024"],
+        labels: alumni
+            .sort((a, b) => a.tahun - b.tahun)
+            .map(function (item) {
+                return item.tahun;
+            }),
         datasets: [
             {
                 label: "Total Alumni",
@@ -48,7 +52,11 @@ var myLineChart = new Chart(ctx, {
                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                 pointHitRadius: 10,
                 pointBorderWidth: 2,
-                data: [0, 60, 40, 78, 30, 40],
+                data: alumni
+                    .sort((a, b) => a.tahun - b.tahun)
+                    .map(function (item) {
+                        return item.jumlah;
+                    }),
             },
         ],
     },
@@ -69,8 +77,8 @@ var myLineChart = new Chart(ctx, {
                         unit: "date",
                     },
                     gridLines: {
-                        display: false,
-                        drawBorder: false,
+                        display: true,
+                        drawBorder: true,
                     },
                     ticks: {
                         maxTicksLimit: 7,
@@ -90,7 +98,7 @@ var myLineChart = new Chart(ctx, {
                     gridLines: {
                         color: "rgb(234, 236, 244)",
                         zeroLineColor: "rgb(234, 236, 244)",
-                        drawBorder: false,
+                        drawBorder: true,
                         borderDash: [2],
                         zeroLineBorderDash: [2],
                     },
@@ -98,7 +106,7 @@ var myLineChart = new Chart(ctx, {
             ],
         },
         legend: {
-            display: false,
+            display: "bottom",
         },
         tooltips: {
             backgroundColor: "rgb(255,255,255)",
