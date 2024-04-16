@@ -137,6 +137,11 @@
                                 <canvas id="myAreaChart"></canvas>
                             </div>
                         </div>
+                        <div class="text-left m-4">
+                            <button class="btn btn-sm btn-primary">
+                                Lihat Selengkapnya
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <!-- DonutChart -->
@@ -148,6 +153,11 @@
                         <div class="card-body">
                             <div class="chart-pie pt-4">
                                 <canvas id="myPieChart"></canvas>
+                            </div>
+                            <div class="text-center">
+                                <button class="btn btn-sm btn-primary">
+                                    Lihat Selengkapnya
+                                </button>
                             </div>
                         </div>
                     </div>

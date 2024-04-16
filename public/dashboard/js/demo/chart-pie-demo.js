@@ -12,8 +12,8 @@ var myPieChart = new Chart(ctx, {
         datasets: [
             {
                 data: [tidakLanjutSekolahCount, lanjutSekolahCount],
-                backgroundColor: ["#4e73df", "#1cc88a"],
-                hoverBackgroundColor: ["#2e59d9", "#17a673"],
+                backgroundColor: ["#dc3545", "#17a673"],
+                hoverBackgroundColor: ["#c82333", "#17a673"],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
             },
         ],
@@ -21,7 +21,7 @@ var myPieChart = new Chart(ctx, {
     options: {
         maintainAspectRatio: false,
         legend: {
-            position: "left",
+            position: "bottom",
         },
         tooltips: {
             backgroundColor: "rgb(255,255,255)",

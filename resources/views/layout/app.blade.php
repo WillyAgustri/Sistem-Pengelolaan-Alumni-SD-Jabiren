@@ -124,13 +124,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../manage-grafik">
+                    <a class="nav-link" href="{{ route('grafik.index') }}">
                         <i class="fas fa-chart-bar"></i>
                         <span>Grafik</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="../logout">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a>

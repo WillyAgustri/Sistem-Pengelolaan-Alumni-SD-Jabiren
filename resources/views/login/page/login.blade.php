@@ -114,7 +114,7 @@
                                 <h3>Masuk</h3>
                                 <p class="mb-4">
                                     Sistem Pengelolaan Data Alumni SD Negeri
-                                    1 Jabrien Raya
+                                    1 Jabiren Raya
                                 </p>
                             </div>
                             <form action="{{ route('login.store') }}" method="post">

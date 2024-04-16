@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminsController;
 use App\Http\Controllers\TahunsController;
 use App\Http\Controllers\AktivasisController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\GrafikController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,9 +46,7 @@ Route::middleware(['auth:admin'])->group(
 
 
 
-        Route::get('/manage-grafik', function () {
-            return view('m_grafik/index_grafik');
-        });
+    
 
 
         // Dashboard Admin
@@ -70,6 +69,10 @@ Route::middleware(['auth:admin'])->group(
 
         // Manajemen Aktivasi
         Route::resource('manage-aktivasi', AktivasisController::class)->names('aktivasis');
+
+
+        //Grafik Admin
+        Route::resource('/grafik', GrafikController::class)->names('grafik');
 
     }
 );
