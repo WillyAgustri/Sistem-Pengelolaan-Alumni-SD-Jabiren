@@ -21,7 +21,17 @@
             <!-- DataTable with Hover -->
             <div class="col-lg-12">
                 <div class="card mb-4">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
                         <h6 class="m-0 font-weight-bold text-primary">
                             <button class="btn btn-info" data-toggle="modal" data-target="#modalTambahAdmin">
                                 <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data
@@ -37,7 +47,6 @@
                                     <th>Foto</th>
                                     <th>Name</th>
                                     <th>Usename</th>
-                                    <th>Password</th>
                                     <th>Telepon</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -48,7 +57,6 @@
                                     <th>Foto</th>
                                     <th>Name</th>
                                     <th>Usename</th>
-                                    <th>Password</th>
                                     <th>Telepon</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -61,7 +69,6 @@
                                                 width="100px" alt="Foto Admin"></td>
                                         <td>{{ $admin->name }}</td>
                                         <td>{{ $admin->username }}</td>
-                                        <td>(Encrypt Password)</td>
                                         <td>{{ $admin->phone_num }}</td>
                                         <td>
                                             <div class="btn-group dropleft align-items-center">
@@ -110,11 +117,11 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form method="POST" action="{{ route('admins.update', $admin->id) }}">
+                                                <form method="POST" action="{{ route('admins.update', $admin->id) }}"
+                                                    enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-body">
-
                                                         <div class="form-group form-sm">
                                                             <label for="name" class=" col-form-label">Nama:</label>
                                                             <input type="text" class="form-control" name="name"
@@ -127,23 +134,44 @@
                                                                 id="username" value="{{ $admin->username }}">
                                                         </div>
                                                         <div class="form-group form-sm">
-                                                            <label for="password" class=" col-form-label">Password</label>
-                                                            <input type="text" class="form-control" name="password"
-                                                                id="password" value="">
+                                                            <label for="phone_num" class=" col-form-label">Nomor
+                                                                Telepon (Opsional)</label>
+                                                            <input type="text" class="form-control" name="phone_num"
+                                                                id="phone_num" value="{{ $admin->phone_num }}">
                                                         </div>
                                                         <div class="form-group form-sm">
-                                                            <label for="password_confirmation"
-                                                                class=" col-form-label">Konfirmasi Password</label>
-                                                            <input type="text" class="form-control"
-                                                                name="password_confirmation" id="password_confirmation"
-                                                                value="">
+                                                            <label for="old_password" class=" col-form-label">Password
+                                                                Lama</label>
+                                                            <input type="password" class="form-control" name="old_password"
+                                                                id="old_password" value="">
+                                                        </div>
+                                                        <div class="form-group form-sm col">
+                                                            <label for="foto" class="col-form-label">Foto</label>
+                                                            <input value="{{ $admin->foto }}" type="file"
+                                                                class="form-control" name="foto" id="foto"
+                                                                onchange="previewFileEdit(this)">
+                                                            <img src="{{ asset('images/' . $admin->foto) }}"
+                                                                id="previewImgEdit" width="100px">
+                                                            <script>
+                                                                function previewFileEdit(input) {
+                                                                    var file = input.files[0];
+                                                                    if (file) {
+                                                                        var reader = new FileReader();
+                                                                        reader.onload = function() {
+                                                                            $("#previewImgEdit").attr("src", reader.result);
+                                                                        }
+                                                                        reader.readAsDataURL(file);
+                                                                    }
+                                                                }
+                                                            </script>
                                                         </div>
 
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-danger"
                                                             data-dismiss="modal">Batal</button>
-                                                        <button type="submit" class="btn btn-success">Ubah Data</button>
+                                                        <button type="submit" class="btn btn-success">Ubah
+                                                            Data</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -189,7 +217,8 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form method="POST">
+                                            <form method="POST" action="{{ route('admins.store') }}"
+                                                enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="modal-body">
 
@@ -205,9 +234,22 @@
                                                             id="username">
                                                     </div>
                                                     <div class="form-group form-sm">
+                                                        <label for="phone_num" class=" col-form-label">Nomor
+                                                            Telepon (Opsional)</label>
+                                                        <input type="text" class="form-control" name="phone_num"
+                                                            id="phone_num">
+                                                    </div>
+
+                                                    <div class="form-group form-sm">
                                                         <label for="password" class=" col-form-label">Password</label>
-                                                        <input type="text" class="form-control" name="password"
+                                                        <input type="password" class="form-control" name="password"
                                                             id="password">
+                                                    </div>
+                                                    <div class="form-group form-sm">
+                                                        <label for="password_confirmation"
+                                                            class=" col-form-label">Konfirmasi Password</label>
+                                                        <input type="password" class="form-control"
+                                                            name="password_confirmation" id="password">
                                                     </div>
                                                     <div class="form-group form-sm">
                                                         <label for="foto" class=" col-form-label">Foto Profil

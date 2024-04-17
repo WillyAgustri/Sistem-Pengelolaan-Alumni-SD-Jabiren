@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\AlumniProfileController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlumnisController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\TahunsController;
 use App\Http\Controllers\AktivasisController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\GrafikController;
+use App\Http\Controllers\CariAlumniController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,26 +31,38 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 
 Route::middleware(['auth:alumnis'])->group(function () {
-    Route::get('/dashboards-alumni', function () {
-        return view('dashboard/dashboard');
-    });
-    Route::get('/alumni', function () {
-        return view('a_lihatAlumni.index_lihatAlumni');
-    });
+
+    // Biodata
     Route::get('alumni-profil', function () {
         return view('a_profil.index_profil');
     });
+
+    Route::get('alumni-profil',[AlumniProfileController::class,'index' ])->name('alumni-profil');
+
+
+
+    Route::put('/update-biodata/{id}', [AlumniProfileController::class, 'update'])->name('ganti_biodata');
+    Route::put('/update-password/{id}', [AlumniProfileController::class, 'ganti_password'])->name('ganti_password');
+    Route::put('/update-foto/{id}', [AlumniProfileController::class, 'ganti_foto'])->name('ganti_foto');
+
+    // Dashboard
+    Route::get('/dashboards-alumni', function () {
+        return view('a_dashboard/index_dashboard');
+    });
+
+    // Lihat Alumni
+    Route::get('/alumni', function () {
+        return view('a_lihatAlumni.index_lihatAlumni');
+    });
+
+    Route::post('/cari-alumni', [CariAlumniController::class, 'cari'])->name('cari-alumni');
+
+   
 
 });
 
 Route::middleware(['auth:admin'])->group(
     function () {
-
-
-
-    
-
-
         // Dashboard Admin
         Route::get('/dashboards',[AdminDashboardController::class, 'index'])->name('dashboard.admin');
 

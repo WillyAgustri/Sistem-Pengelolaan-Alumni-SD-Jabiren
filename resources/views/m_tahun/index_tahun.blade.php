@@ -24,7 +24,7 @@
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">
                             <button class="btn btn-info" data-toggle="modal" data-target="#modalTambahTahun">
-                                Tambah Data
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambah Data
                             </button>
                         </h6>
                     </div>

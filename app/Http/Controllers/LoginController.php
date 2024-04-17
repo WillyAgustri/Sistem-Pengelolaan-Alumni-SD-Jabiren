@@ -40,7 +40,7 @@ class LoginController extends Controller
 
                 if (Auth::guard('alumnis')->attempt($credentials)) {
                     $request->session()->regenerate();
-                    return redirect('dashboards-alumni');
+                    return redirect('/dashboards-alumni');
                 } else
                     return view('login.page.login')->with([
                         alert()->Error('NISN atau Password Salah!', 'Silahkan Masukan Kembali...')

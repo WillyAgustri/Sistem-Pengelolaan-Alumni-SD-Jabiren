@@ -53,7 +53,7 @@
                 </a>
                 <hr class="sidebar-divider my-0" />
                 <li class="nav-item active">
-                    <a class="nav-link" href="../dashboards">
+                    <a class="nav-link" href="../dashboards-alumni">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
@@ -63,11 +63,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../alumni-profil">
                         <i class="far fa-user-circle"></i>
-                        <span>Pengaturan Profil</span>
+                        <span>Biodata</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../alumni">
+                        <i class="fas fa-search"></i>
+                        <span>Cari Alumni</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="../logout">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a>

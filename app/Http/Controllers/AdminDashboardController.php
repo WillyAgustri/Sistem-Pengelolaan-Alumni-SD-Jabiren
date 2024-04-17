@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Tahun;
 use App\Models\Alumnus;
+use App\Models\Aktivasi;
 
 class AdminDashboardController extends Controller
 {
@@ -13,6 +14,7 @@ class AdminDashboardController extends Controller
         $adminCount = Admin::count();
         $alumniCount = Alumnus::count();
         $tahunCount = Tahun::count();
+        $aktivasiCount = Aktivasi::count();
         $getTahun = Tahun::all();
         $alumniPerTahun = [];
         foreach ($getTahun as $tahun) {
@@ -23,6 +25,6 @@ class AdminDashboardController extends Controller
         $lanjutSekolahCount = Alumnus::whereNotNull('lnjt_sklh')->count();
         $tidakLanjutSekolahCount = Alumnus::where('lnjt_sklh', null)->orWhere('lnjt_sklh', '')->count();
 
-        return view('dashboard.dashboard', compact('adminCount', 'alumniCount', 'tahunCount', 'lanjutSekolahCount','getTahun','alumniPerTahun','tidakLanjutSekolahCount'));
+        return view('m_dashboard.dashboard', compact('adminCount', 'alumniCount', 'tahunCount', 'lanjutSekolahCount','getTahun','alumniPerTahun','tidakLanjutSekolahCount','aktivasiCount'));
     }
 }
