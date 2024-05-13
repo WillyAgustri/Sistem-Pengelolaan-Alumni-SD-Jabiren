@@ -45,8 +45,8 @@ body {
 }
 
 p {
-    color: #b3b3b3;
-    font-weight: 300;
+    color: #000000;
+    font-weight: 500;
 }
 
 h1,
@@ -141,7 +141,7 @@ h2 {
     font-size: 12px;
     display: block;
     margin-bottom: 0;
-    color: #b3b3b3;
+    color: #000000;
 }
 
 .content .contents .form-group.focus,

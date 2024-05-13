@@ -170,7 +170,6 @@
                             value="{{ Auth::user()->tgl_lahir == '' ? '-' : Auth::user()->tgl_lahir }}"
                             placeholder="Tanggal Lahir" readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="exampleInputPassword1">Nomor Telepon</label>
                         <input type="text" class="form-control" id="exampleInputPassword1"
@@ -182,7 +181,6 @@
                             value="{{ Auth::user()->lnjt_sklh == '' ? '-' : Auth::user()->lnjt_sklh }}"
                             placeholder="Nama Sekolah" readonly>
                     </div>
-
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-warning" data-toggle="modal"
                             data-target="#editProfilModal">
@@ -190,7 +188,6 @@
                             Edit Biodata
                         </button>
                     </div>
-
                     {{-- Modal Edit Profil --}}
                     <div class="modal fade" id="editProfilModal" tabindex="-1" role="dialog"
                         aria-labelledby="editProfilModalLabel" aria-hidden="true">
@@ -221,7 +218,6 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="j_kelamin">Jenis Kelamin</label>
-
                                                     <select name="j_kelamin" id="j_kelamin" class="form-control"
                                                         required>
                                                         <option value="L"

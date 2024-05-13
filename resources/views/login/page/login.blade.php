@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('login/css/owl.carousel.min.css') }}" />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('login/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('dashboard/vendor/bootstrap/css/bootstrap.min.css') }}" />
 
     <!-- Style -->
     <link rel="stylesheet" href="{{ asset('login/css/style.css') }}" />
@@ -137,7 +137,7 @@
                                         " />
                             </form>
 
-                            <span class="d-block  mt-4 text-muted">
+                            <span class="d-block  mt-4">
                                 Data Anda Tidak Terdaftar Pada Sistem?, Aktivasi Pada Tombol Dibawah Ini :
 
                             </span>
