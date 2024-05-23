@@ -15,9 +15,10 @@ class CreateAktivasisTable extends Migration
     {
         Schema::create('aktivasis', function (Blueprint $table) {
             $table->id();
-			$table->string('name');
-			$table->string('nisn');
-			$table->text('brks_ijasah');
+            $table->string('name');
+            $table->string('nisn');
+            $table->text('brks_ijasah');
+            $table->integer('diterima');
             $table->timestamps();
         });
     }

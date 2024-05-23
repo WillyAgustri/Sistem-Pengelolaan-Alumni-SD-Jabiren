@@ -47,30 +47,29 @@ class LoginController extends Controller
                     ]);
             }
         return view('login.page.login');
-
     }
-
     public function aktivasi(Request $request)
     {
 
-        $validator = $request->validate([
-            'nisn' => 'required',
-            'name' => 'required',
-            'brks_ijasah' => 'required',
-        ],[
-            'name.required' => 'Nama tidak boleh kosong',
-            'nisn.required' => 'NISN tidak boleh kosong',
-            'brks_ijasah.required' => 'File Ijasah tidak boleh kosong',
-        ]
-    );
-
+        $validator = $request->validate(
+            [
+                'nisn' => 'required',
+                'name' => 'required',
+                'brks_ijasah' => 'required',
+            ],
+            [
+                'name.required' => 'Nama tidak boleh kosong',
+                'nisn.required' => 'NISN tidak boleh kosong',
+                'brks_ijasah.required' => 'File Ijasah tidak boleh kosong',
+            ]
+        );
         if ($validator) {
             $aktivasi = new Aktivasi;
             $aktivasi->nisn = $request->input('nisn');
             $aktivasi->name = $request->input('name');
+            $aktivasi->diterima = 0;
             $aktivasi->brks_ijasah = $request->input('brks_ijasah');
             if ($request->hasFile('brks_ijasah')) {
-
                 $fileExtension = $request->file('brks_ijasah')->extension();
                 if ($fileExtension == 'pdf' || $fileExtension == 'jpg') {
                     $brksIjasahName = time() . '.' . $fileExtension;
@@ -79,8 +78,7 @@ class LoginController extends Controller
                 } else {
                     return back()->withErrors(['brks_ijasah' => 'File Ijasah Harus Berupa PDF atau JPG'])->withInput();
                 }
-            } 
-
+            }
             $aktivasi->save();
             return back()->with([
                 'success' => 'Berhasil Aktivasi Akun, Silahkan Tunggu Operator Kami Mengaktifkan Akun Anda...'
@@ -90,7 +88,6 @@ class LoginController extends Controller
                 alert()->Error('Gagal Aktivasi Akun', 'Silahkan Masukan Kembali...')
             ]);
         }
-    
     }
 
     public function logout(Request $request)
@@ -99,7 +96,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return view('login.page.login')->with([alert()->Success('Anda Berhasil Logout')]);
+        return redirect('/');
     }
 
 

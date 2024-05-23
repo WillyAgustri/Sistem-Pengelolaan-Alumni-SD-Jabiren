@@ -144,6 +144,75 @@
                             <button type="button" class="btn btn-secondary " data-toggle="modal"
                                 data-target="#exampleModal">Aktivasi Akun</button>
 
+                            <hr>
+                            <a href="#" class="" data-toggle="modal" data-target="#cekStatusModal">Cek
+                                Status Aktivasi</a>
+
+                            <a href="#" class="" data-toggle="modal" data-target="#resetAdminModal">
+                                Reset Password Admin</a>
+                            {{-- Modal Cek Aktivasi --}}
+                            <div class="modal fade" id="cekStatusModal" tabindex="-1" role="dialog"
+                                aria-labelledby="cekStatusModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="cekStatusModalLabel">Cek Status Aktivasi</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST" action="{{ route('cek_status') }}">
+                                                @csrf
+                                                @method('POST')
+                                                <span>NISN yang diajukan sebelumnya</span>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="nisn"
+                                                        id="nisn" required />
+                                                </div>
+                                                <button href="{{ route('aktivasis.index') }}"
+                                                    class="btn btn-primary btn-block mt-2 text-white">Cek Status
+                                                    Aktivasi</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Modal Reset Admin --}}
+                            <div class="modal fade" id="resetAdminModal" tabindex="-1" role="dialog"
+                                aria-labelledby="resetAdminModal" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="cekStatusModalLabel">Reset Password Admin</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="POST" action="{{ route('reset_password') }}">
+                                                @csrf
+                                                @method('POST')
+                                                <span>Username</span>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="username"
+                                                        id="username" required />
+                                                </div>
+                                                <span>Tanggal Lahir</span>
+                                                <div class="form-group">
+                                                    <input type="date" class="form-control" name="tgl_lahir"
+                                                        id="tgl_lahir" required />
+                                                </div>
+                                                <button class="btn btn-primary btn-block mt-2 text-white">Reset
+                                                    Password</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">

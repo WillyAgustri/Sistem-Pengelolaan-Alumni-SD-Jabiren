@@ -18,7 +18,7 @@ class AktivasisController extends Controller
      */
     public function index()
     {
-        $aktivasis = Aktivasi::all();
+        $aktivasis = Aktivasi::where('diterima', 0)->get();
         return view('m_aktivasi.index_aktivasi', ['aktivasis' => $aktivasis]);
     }
 
@@ -40,7 +40,7 @@ class AktivasisController extends Controller
         return view('aktivasis.show', ['aktivasi' => $aktivasi]);
     }
 
- 
+
     public function edit($id)
     {
         $aktivasi = Aktivasi::findOrFail($id);
@@ -50,14 +50,16 @@ class AktivasisController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        $confirmAlumnus = Aktivasi::findOrFail($id);
+        $confirmAlumnus->diterima = 1;
+        $confirmAlumnus->save();
+
         $alumnus = new Alumnus;
         $alumnus->name = $request->input('name');
         $alumnus->nisn = $request->input('nisn');
         $alumnus->password = $request->input('nisn');
         $alumnus->save();
-
-        $deleteAlumnus = Aktivasi::findOrFail($id);
-        $deleteAlumnus->delete();
 
 
         return to_route('aktivasis.index');
@@ -68,14 +70,15 @@ class AktivasisController extends Controller
     public function destroy($id)
     {
         $aktivasi = Aktivasi::findOrFail($id);
-        $aktivasi->delete();
-
+        $aktivasi->diterima = 2;
+        $aktivasi->save();
         return to_route('aktivasis.index');
     }
 
 
-    public function get_download($id){
-        $filePath = storage_path('app/public/aktivasi/'.$id.'.pdf');
+    public function get_download($id)
+    {
+        $filePath = storage_path('app/public/aktivasi/' . $id . '.pdf');
         return response()->download($filePath);
 
     }

@@ -33,13 +33,14 @@ class AdminProfileController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required',
-
+            'tgl_lahir' => 'required',
         ]);
 
         $admin = Auth::guard('admin')->user();
         $admin->name = $request->name;
         $admin->username = $request->username;
         $admin->phone_num = $request->phone_num;
+        $admin->tgl_lahir = $request->tgl_lahir;
         $admin->save();
 
         return redirect()->route('setting-profil.index')->with('success', 'Profile berhasil diperbarui');

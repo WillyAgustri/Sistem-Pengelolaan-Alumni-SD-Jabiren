@@ -123,8 +123,6 @@ class AlumnisController extends Controller
             'name' => 'required',
             'nisn' => 'required',
             'id_tahun' => 'required',
-
-
         ], [
             'name.required' => 'Nama tidak boleh kosong',
             'id_tahun.required' => 'Tahun tidak boleh kosong',
@@ -143,8 +141,6 @@ class AlumnisController extends Controller
             $alumnus->phone_num = $request->input('phone_num');
             $alumnus->alamat = $request->input('alamat');
             $alumnus->lnjt_sklh = $request->input('lnjt_sklh');
-
-
             if ($request->hasFile('foto')) {
                 if (File::exists(public_path('images/' . $alumnus->foto))) {
                     File::delete(public_path('images/' . $alumnus->foto));
@@ -154,14 +150,9 @@ class AlumnisController extends Controller
                 $alumnus->foto = $imageName;
             }
             $alumnus->save();
-
             return to_route('alumnis.index');
         }
-
         return to_route('alumnis.index');
-
-
-
     }
 
     /**
@@ -180,7 +171,6 @@ class AlumnisController extends Controller
 
         return to_route('alumnis.index');
     }
-
 
     public function reset_password($id)
     {

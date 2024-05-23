@@ -15,15 +15,15 @@ class CreateAdminsTable extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
-			$table->string('name')->nullable();
-			$table->string('username');
-			$table->string('password');
-			$table->text('foto')->nullable();
-			$table->string('phone_num')->nullable();
+            $table->string('name')->nullable();
+            $table->string('username');
+            $table->string('password');
+            $table->text('foto')->nullable();
+            $table->string('phone_num')->nullable();
+            $table->date('tgl_lahir')->nullable();
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

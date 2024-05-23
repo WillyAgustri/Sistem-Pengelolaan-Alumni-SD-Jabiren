@@ -76,7 +76,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal"
                             data-target="#gantiPassword">
                             <i class="fas fa-key mr-2"></i>Ganti Password
@@ -168,6 +167,11 @@
                             value="{{ Auth::user()->phone_num }}" placeholder="Telepon" disabled>
                     </div>
 
+                    <div class="form-group">
+                        <label for="tgl_lahir">Tanggal Lahir</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1"
+                            value="{{ Auth::user()->tgl_lahir }}" placeholder="Tanggal lahir" disabled>
+                    </div>
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-warning" data-toggle="modal"
                             data-target="#editProfilModal">
@@ -207,6 +211,12 @@
                                                 <input type="text" class="form-control" id="phone_num"
                                                     name="phone_num" placeholder="Telepon"
                                                     value="{{ Auth::user()->phone_num }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="phone_num">Tanggal lahir</label>
+                                                <input type="date" class="form-control" id="phone_num"
+                                                    name="tgl_lahir" placeholder="Tanggal Lahir"
+                                                    value="{{ Auth::user()->tgl_lahir }}">
                                             </div>
                                     </div>
                                     <div class="modal-footer">

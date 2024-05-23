@@ -104,7 +104,6 @@
                                             </div>
                                         </td>
                                     </tr>
-
                                     {{-- Modal Ubah Data --}}
                                     <div class="modal fade" id="modalUbahAdmin{{ $admin->id }}" tabindex="-1"
                                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -133,6 +132,12 @@
                                                             <input type="text" class="form-control" name="username"
                                                                 id="username" value="{{ $admin->username }}">
                                                         </div>
+                                                        <div class="form-group  form-sm">
+                                                            <label for="tgl_lahir" class=" col-form-label">Tanggal
+                                                                lahir</label>
+                                                            <input type="date" class="form-control" name="tgl_lahir"
+                                                                id="tgl_lahir" value="{{ $admin->tgl_lahir }}">
+                                                        </div>
                                                         <div class="form-group form-sm">
                                                             <label for="phone_num" class=" col-form-label">Nomor
                                                                 Telepon (Opsional)</label>
@@ -142,8 +147,8 @@
                                                         <div class="form-group form-sm">
                                                             <label for="old_password" class=" col-form-label">Password
                                                                 Lama</label>
-                                                            <input type="password" class="form-control" name="old_password"
-                                                                id="old_password" value="">
+                                                            <input type="password" class="form-control"
+                                                                name="old_password" id="old_password" value="">
                                                         </div>
                                                         <div class="form-group form-sm col">
                                                             <label for="foto" class="col-form-label">Foto</label>
@@ -165,7 +170,6 @@
                                                                 }
                                                             </script>
                                                         </div>
-
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-danger"
@@ -221,7 +225,6 @@
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="modal-body">
-
                                                     <div class="form-group form-sm">
                                                         <label for="name" class=" col-form-label">Nama:</label>
                                                         <input type="text" class="form-control" name="name"
@@ -233,13 +236,18 @@
                                                         <input type="text" class="form-control" name="username"
                                                             id="username">
                                                     </div>
+                                                    <div class="form-group  form-sm">
+                                                        <label for="tgl_lahir" class=" col-form-label">Tanggal
+                                                            lahir</label>
+                                                        <input type="date" class="form-control" name="tgl_lahir"
+                                                            id="tgl_lahir">
+                                                    </div>
                                                     <div class="form-group form-sm">
                                                         <label for="phone_num" class=" col-form-label">Nomor
                                                             Telepon (Opsional)</label>
                                                         <input type="text" class="form-control" name="phone_num"
                                                             id="phone_num">
                                                     </div>
-
                                                     <div class="form-group form-sm">
                                                         <label for="password" class=" col-form-label">Password</label>
                                                         <input type="password" class="form-control" name="password"

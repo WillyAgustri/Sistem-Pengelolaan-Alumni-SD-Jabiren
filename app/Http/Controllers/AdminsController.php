@@ -31,11 +31,12 @@ class AdminsController extends Controller
             'name' => 'required|string|max:255',
             'username' => 'required',
             'password' => 'required|confirmed',
-
-        ],[
+            'tgl_lahir' => 'required',
+        ], [
             'username.required' => 'Username tidak boleh kosong',
             'password.required' => 'Password tidak boleh kosong',
             'password.confirmed' => 'Konfirmasi password tidak sesuai',
+            'tgl_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
         ]);
 
         $admin = new Admin;
@@ -43,6 +44,7 @@ class AdminsController extends Controller
         $admin->username = $request->input('username');
         $admin->password = $request->input('password');
         $admin->phone_num = $request->input('phone_num');
+        $admin->password = $request->input('tgl_lahir');
         if ($request->hasFile('foto')) {
             $imageName = time() . '.' . $request->file('foto')->extension();
             $request->file('foto')->move(public_path('images'), $imageName);
@@ -54,7 +56,7 @@ class AdminsController extends Controller
         return to_route('admins.index');
     }
 
-   
+
     public function show($id)
     {
         $admin = Admin::findOrFail($id);
@@ -66,43 +68,39 @@ class AdminsController extends Controller
         $admin = Admin::findOrFail($id);
         return view('admins.edit', ['admin' => $admin]);
     }
-
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required',
+            'tgl_lahir' => 'required',
             'old_password' => 'required',
-        ],[
+        ], [
             'username.required' => 'Username tidak boleh kosong',
             'old_password.required' => 'Password lama tidak boleh kosong',
+            'tgl_lahir.required' => 'Tanggal Lahir tidak boleh kosong',
             'password.confirmed' => 'Konfirmasi password tidak sesuai',
         ]);
         $admin = Admin::findOrFail($id);
         if (Hash::check($request->old_password, $admin->password)) {
-        $admin->name = $request->input('name');
-        $admin->username = $request->input('username');
-        $admin->phone_num = $request->input('phone_num');
-        if ($request->hasFile('foto')) {
-            if (File::exists(public_path('images/' . $admin->foto))) {
-                File::delete(public_path('images/' . $admin->foto));
+            $admin->name = $request->input('name');
+            $admin->username = $request->input('username');
+            $admin->phone_num = $request->input('phone_num');
+            $admin->password = $request->input('tgl_lahir');
+            if ($request->hasFile('foto')) {
+                if (File::exists(public_path('images/' . $admin->foto))) {
+                    File::delete(public_path('images/' . $admin->foto));
+                }
+                $imageName = time() . '.' . $request->file('foto')->extension();
+                $request->file('foto')->move(public_path('images'), $imageName);
+                $admin->foto = $imageName;
             }
-            $imageName = time() . '.' . $request->file('foto')->extension();
-            $request->file('foto')->move(public_path('images'), $imageName);
-            $admin->foto = $imageName;
-        }
-        
-        $admin->save();
-    }
-        else
-        {
+            $admin->save();
+        } else {
             return back()->with('error', 'Password lama tidak sesuai');
         }
-
         return to_route('admins.index');
     }
-
- 
     public function destroy($id)
     {
         $admin = Admin::findOrFail($id);
@@ -110,7 +108,8 @@ class AdminsController extends Controller
             File::delete(public_path('images/' . $admin->foto));
         }
         $admin->delete();
-
         return to_route('admins.index');
     }
+
+
 }

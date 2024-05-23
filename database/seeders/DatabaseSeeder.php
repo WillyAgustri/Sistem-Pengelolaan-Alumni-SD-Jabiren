@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use App\Models\admin;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,18 +19,18 @@ class DatabaseSeeder extends Seeder
                 'username' => 'Admin',
                 'password' => bcrypt('admin'),
                 'foto' => '',
-                'phone_num' =>''
+                'phone_num' => ''
             ],
             [
                 'name' => '',
                 'username' => 'ivena',
                 'password' => bcrypt('ivena'),
                 'foto' => '',
-                'phone_num' =>'',
-                
+                'phone_num' => '',
+
 
             ],
-            ];
+        ];
 
         foreach ($user as $value) {
             admin::create($value);

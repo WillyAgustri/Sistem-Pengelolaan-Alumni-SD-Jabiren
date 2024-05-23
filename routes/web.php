@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\AdmResetController;
 use App\Http\Controllers\AlumniProfileController;
+use App\Http\Controllers\CekStatusAktivasi;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ResetPasswordAdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlumnisController;
 use App\Http\Controllers\AdminsController;
@@ -25,8 +28,9 @@ use App\Http\Controllers\CariAlumniController;
 Route::resource('/', LoginController::class)->names('login');
 // Aktivasi Akun 
 Route::post('/aktivasi-akun', [LoginController::class, 'aktivasi'])->name('aktivasi');
-
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/cek-status', [CekStatusAktivasi::class, 'cek_status'])->name('cek_status');
+Route::post('/reset-password', [AdmResetController::class, 'reset_password'])->name('reset_password');
 
 
 
@@ -37,7 +41,7 @@ Route::middleware(['auth:alumnis'])->group(function () {
         return view('a_profil.index_profil');
     });
 
-    Route::get('alumni-profil',[AlumniProfileController::class,'index' ])->name('alumni-profil');
+    Route::get('alumni-profil', [AlumniProfileController::class, 'index'])->name('alumni-profil');
 
 
 
@@ -57,14 +61,14 @@ Route::middleware(['auth:alumnis'])->group(function () {
 
     Route::post('/cari-alumni', [CariAlumniController::class, 'cari'])->name('cari-alumni');
 
-   
+
 
 });
 
 Route::middleware(['auth:admin'])->group(
     function () {
         // Dashboard Admin
-        Route::get('/dashboards',[AdminDashboardController::class, 'index'])->name('dashboard.admin');
+        Route::get('/dashboards', [AdminDashboardController::class, 'index'])->name('dashboard.admin');
 
         // Manajemen Profil Admin
         Route::resource('/setting-profil', AdminProfileController::class)->names('setting-profil');
